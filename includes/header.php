@@ -66,7 +66,7 @@ $schema    = [
 
     <div class="header-actions">
       <a class="header-phone" href="tel:<?= PHONE_HREF ?>"><?= icon('phone') ?><?= e(PHONE) ?></a>
-      <a class="btn btn--sm btn-cta" href="<?= e(url('contact.php')) ?>#enquire">Book a site visit</a>
+      <a class="btn btn--sm btn-cta" href="<?= e(url('contact')) ?>#enquire">Book a site visit</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
         <?= icon('menu', 'icon icon-open') ?><?= icon('x', 'icon icon-close') ?>
       </button>
@@ -83,7 +83,7 @@ $schema    = [
   <div class="mobile-menu-foot">
     <a href="tel:<?= PHONE_HREF ?>"><?= icon('phone') ?><?= e(PHONE) ?></a>
     <a href="mailto:<?= EMAIL ?>"><?= icon('mail') ?><?= e(EMAIL) ?></a>
-    <a class="btn btn--light" href="<?= e(url('contact.php')) ?>#enquire">Book a site visit <?= icon('arrow-right') ?></a>
+    <a class="btn btn--light" href="<?= e(url('contact')) ?>#enquire">Book a site visit <?= icon('arrow-right') ?></a>
   </div>
 </div>
 

@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
 
 $page = [
     'nav'         => 'projects',
-    'path'        => 'projects.php',
+    'path'        => 'projects',
     'title'       => 'Projects — Apartments, Villas & Commercial Spaces in ' . CITY . ' | ' . SITE_NAME,
     'description' => 'Browse ongoing, upcoming and ready-to-move projects by ' . SITE_NAME . '. Filter by location, property type and budget.',
     'image'       => PHOTOS['projects_hero'],
@@ -84,7 +84,7 @@ require ROOT . '/includes/header.php';
       <p>Try another location or budget, or ask our team about upcoming launches.</p>
       <div class="btn-row" style="justify-content:center">
         <button class="btn btn--dark" type="button" data-reset>Clear filters</button>
-        <a class="btn btn--outline" href="<?= e(url('contact.php')) ?>#enquire">Talk to our team</a>
+        <a class="btn btn--outline" href="<?= e(url('contact')) ?>#enquire">Talk to our team</a>
       </div>
     </div>
   </div>

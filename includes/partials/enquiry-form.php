@@ -20,7 +20,7 @@ $aria = fn (string $k): string => isset($err[$k]) ? ' aria-invalid="true" aria-d
 
 $interest = $v['interest'] ?? ($project ?? (string) ($_GET['interest'] ?? ''));
 ?>
-<form class="form" method="post" action="<?= e(url('contact.php')) ?>#enquire" novalidate>
+<form class="form" method="post" action="<?= e(url('contact')) ?>#enquire" novalidate>
   <input type="hidden" name="token" value="<?= e(csrf_token()) ?>">
   <input type="hidden" name="source" value="<?= e($source ?? 'contact') ?>">
   <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>

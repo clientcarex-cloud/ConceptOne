@@ -437,12 +437,20 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
 .donut::after { content: ""; position: absolute; inset: 16px; border-radius: 50%; background: var(--ink); }
 .legend li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line-light); font-size: .88rem; }
 .legend li:last-child { border-bottom: 0; }
-.legend span { display: inline-flex; align-items: center; gap: 8px; color: var(--muted-light); white-space: nowrap; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; color: var(--muted-light); }
+.legend i { flex: none; }
 .legend i { width: 10px; height: 10px; border-radius: 3px; }
-.legend b { font-weight: 700; }
+.legend b { font-weight: 700; white-space: nowrap; }
 .emi-note { margin-top: 16px; font-size: .78rem; color: var(--muted); }
+.emi-facts { display: grid; gap: 14px; margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line); }
+.emi-facts li { display: flex; gap: 12px; align-items: flex-start; font-size: .9rem; color: var(--muted); }
+.emi-facts strong { color: var(--text); }
+.emi-facts .icon { width: 20px; height: 20px; margin-top: 1px; color: var(--flame); }
+.emi-offer { display: flex; align-items: center; gap: 12px; margin-top: 18px; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, .07); border: 1px solid var(--line-light); font-size: .88rem; color: var(--muted-light); }
+.emi-offer .icon { flex: none; width: 34px; height: 34px; padding: 8px; border-radius: 50%; background: var(--grad-deep); color: #fff; }
+.emi-offer strong { color: #fff; }
 @media (max-width: 1060px) { .emi { grid-template-columns: 1fr; } }
-@media (max-width: 640px) { .emi-card { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .emi-card { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---- Team -------------------------------------------------------------- */
 .team-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 32px); }
@@ -675,7 +683,7 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
 .enquire-card .form { grid-template-columns: 1fr; gap: 12px; }
 .aside-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
 .aside-actions .btn { min-height: 48px; padding: 0 14px; }
-@media (max-width: 1080px) { .detail { grid-template-columns: 1fr; } .aside { position: static; padding-top: 0; } }
+@media (max-width: 1080px) { .detail { grid-template-columns: minmax(0, 1fr); } .aside { position: static; padding-top: 0; } }
 
 /* ---- Forms ------------------------------------------------------------- */
 .form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }

@@ -276,7 +276,7 @@ const STEPS = [
     ['Discover', 'Tell us how you live, what you need and your budget. We shortlist the homes that fit.'],
     ['Visit', 'Tour the site and a show apartment. Weekend slots are available, with pick-up on request.'],
     ['Choose', 'Compare floors, facings and views side by side, with the full cost sheet in front of you.'],
-    ['Finance', 'We help with home-loan paperwork and approvals through our partner banks.'],
+    ['Pay easy', 'Spread ' . NO_COST_EMI_SHARE . '% of the price over No Cost EMIs, paid directly to us with zero interest.'],
     ['Move in', 'A guided handover with a snag-list walkthrough, and after-sales support once you settle in.'],
 ];
 
@@ -310,7 +310,7 @@ const TESTIMONIALS = [
     ['We visited a dozen projects before The Crest. Concept One was the only builder who handed us the full cost sheet on day one — and handed over the keys on the date they promised.', 'Arjun & Meera R.', 'Homeowners, The Crest'],
     ['The monthly construction updates meant we never had to chase anyone. As NRIs, that transparency was everything.', 'Farhan S.', 'Buyer, Skyline Residences'],
     ['Deep balconies, cross ventilation, a proper utility area — you can tell the plans were drawn by people who actually live in this city.', 'Lakshmi N.', 'Homeowner, Serene Heights'],
-    ['From loan paperwork to the snag list at handover, Sana\'s team was on call the whole way. It never felt like a sales transaction.', 'Karthik V.', 'Homeowner, The Crest'],
+    ['From the paperwork to the snag list at handover, Sana\'s team was on call the whole way. It never felt like a sales transaction.', 'Karthik V.', 'Homeowner, The Crest'],
 ];
 
 /** About: values [title, text]. */
@@ -333,7 +333,7 @@ const TIMELINE = [
 /** Contact: FAQs [question, answer]. */
 const FAQS = [
     ['Are your projects RERA registered?', 'Yes. The registration number for each project is shown on its project page and printed on every brochure and agreement. Ask our team for a copy of any approval.'],
-    ['Do you help with home loans?', 'Yes. We work with leading banks and housing-finance companies, and our team handles the paperwork with you, from eligibility checks to disbursement.'],
+    ['How does No Cost EMI work?', 'You pay ' . NO_COST_EMI_SHARE . '% of the property price in equal monthly instalments directly to ' . SITE_SHORT . ', with zero interest and no bank involved. The balance ' . (100 - NO_COST_EMI_SHARE) . '% is paid as per the project\'s payment schedule. Our team will share the exact tenure and terms for your chosen home.'],
     ['Can I visit a site on the weekend?', 'Yes. Site offices and show apartments are open all week. Book a slot and we can arrange pick-up and drop within the city.'],
     ['What payment plans are available?', 'Most projects follow a construction-linked plan. Selected projects also offer flexible and down-payment plans with preferential pricing.'],
     ['Do you assist NRI buyers?', 'Yes. We offer video walkthroughs, digital documentation and power-of-attorney guidance, so you can buy with confidence from anywhere.'],

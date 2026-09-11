@@ -8,7 +8,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 
 $page = [
     'nav'         => 'contact',
-    'path'        => 'contact.php',
+    'path'        => 'contact',
     'title'       => 'Contact Us & Book a Site Visit | ' . SITE_NAME,
     'description' => 'Book a site visit, request a brochure or talk to the ' . SITE_NAME . ' sales team. Call, WhatsApp or send us an enquiry.',
     'image'       => PHOTOS['contact_hero'],

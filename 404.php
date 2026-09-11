@@ -7,7 +7,7 @@ if (!headers_sent()) {
 
 $page = [
     'nav'         => '',
-    'path'        => '404.php',
+    'path'        => '404',
     'title'       => 'Page not found | ' . SITE_NAME,
     'description' => "The page you were looking for doesn't exist.",
     'noindex'     => true,
@@ -23,7 +23,7 @@ require ROOT . '/includes/header.php';
     <p class="lead">The page you're looking for has moved or never existed. Let's find you somewhere better to be.</p>
     <div class="btn-row">
       <a class="btn btn--light" href="<?= url() ?>">Back to home <?= icon('arrow-right') ?></a>
-      <a class="btn btn--ghost" href="<?= e(url('projects.php')) ?>">Browse projects</a>
+      <a class="btn btn--ghost" href="<?= e(url('projects')) ?>">Browse projects</a>
     </div>
   </div>
 </section>

@@ -95,7 +95,7 @@ function handle_enquiry(): array
 
     // Honeypot: a real browser never fills a hidden field.
     if (($_POST['website'] ?? '') !== '') {
-        redirect(url('contact.php') . '?sent=1#enquire');
+        redirect(url('contact') . '?sent=1#enquire');
     }
 
     // Only accept values the form actually offers.
@@ -162,5 +162,5 @@ function handle_enquiry(): array
     );
 
     log_enquiry($values, $mailed);
-    redirect(url('contact.php') . '?sent=1#enquire');
+    redirect(url('contact') . '?sent=1#enquire');
 }

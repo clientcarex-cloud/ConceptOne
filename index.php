@@ -27,12 +27,12 @@ require ROOT . '/includes/header.php';
     <h1 class="display">Built for the life <em>you're building.</em></h1>
     <p class="lead">Apartments, villas and workspaces across <?= CITY ?>, planned around light, air and everyday living. Delivered on schedule, with nothing hidden in the fine print.</p>
     <div class="hero-ctas">
-      <a class="btn btn--light" href="<?= e(url('projects.php')) ?>">Explore projects <?= icon('arrow-right') ?></a>
-      <a class="btn btn--ghost" href="<?= e(url('contact.php')) ?>#enquire">Book a site visit</a>
+      <a class="btn btn--light" href="<?= e(url('projects')) ?>">Explore projects <?= icon('arrow-right') ?></a>
+      <a class="btn btn--ghost" href="<?= e(url('contact')) ?>#enquire">Book a site visit</a>
     </div>
 
     <div class="hero-foot">
-      <form class="search" action="<?= e(url('projects.php')) ?>" method="get" role="search" aria-label="Find a property">
+      <form class="search" action="<?= e(url('projects')) ?>" method="get" role="search" aria-label="Find a property">
         <div class="search-field">
           <label for="s-loc">Location</label>
           <select id="s-loc" name="loc">
@@ -78,7 +78,7 @@ require ROOT . '/includes/header.php';
 </section>
 
 <!-- ============ Ticker ============ -->
-<?php $ticker = ['Clear titles & approvals', 'Handovers on schedule', 'Vastu-aligned homes', 'One honest cost sheet', 'Home-loan assistance', 'After-sales care', 'Built in ' . CITY]; ?>
+<?php $ticker = ['Clear titles & approvals', 'Handovers on schedule', 'Vastu-aligned homes', 'One honest cost sheet', 'No Cost EMI on ' . NO_COST_EMI_SHARE . '%', 'After-sales care', 'Built in ' . CITY]; ?>
 <div class="ticker" aria-label="Our commitments">
   <div class="ticker-track">
     <?php foreach ([false, true] as $dup): ?>
@@ -114,7 +114,7 @@ require ROOT . '/includes/header.php';
           <li><span class="tick"><?= icon('check') ?></span>Monthly construction updates, from foundation to handover</li>
           <li><span class="tick"><?= icon('check') ?></span>A single relationship manager from your first visit to your keys</li>
         </ul>
-        <a class="link-arrow" href="<?= e(url('about.php')) ?>">Discover our story <?= icon('arrow-up-right') ?></a>
+        <a class="link-arrow" href="<?= e(url('about')) ?>">Discover our story <?= icon('arrow-up-right') ?></a>
       </div>
     </div>
 
@@ -150,7 +150,7 @@ require ROOT . '/includes/header.php';
     </div>
 
     <div class="center mt-cta">
-      <a class="btn btn--dark" href="<?= e(url('projects.php')) ?>">Browse all projects <?= icon('arrow-right') ?></a>
+      <a class="btn btn--dark" href="<?= e(url('projects')) ?>">Browse all projects <?= icon('arrow-right') ?></a>
     </div>
   </div>
 </section>
@@ -198,7 +198,7 @@ require ROOT . '/includes/header.php';
         </div>
         <div class="btn-row">
           <a class="btn btn--light" href="<?= e(project_url($spot)) ?>">Explore <?= e($spot['name']) ?> <?= icon('arrow-right') ?></a>
-          <a class="btn btn--ghost" href="<?= e(url('contact.php?interest=' . rawurlencode($spot['name'] . ' — ' . $spot['location']))) ?>#enquire"><?= icon('download') ?>Request brochure</a>
+          <a class="btn btn--ghost" href="<?= e(url('contact?interest=' . rawurlencode($spot['name'] . ' — ' . $spot['location']))) ?>#enquire"><?= icon('download') ?>Request brochure</a>
         </div>
       </div>
     </div>
@@ -213,7 +213,7 @@ require ROOT . '/includes/header.php';
         <p class="eyebrow">How it works</p>
         <h2 class="h2">From first visit <em>to front door.</em></h2>
       </div>
-      <a class="link-arrow" href="<?= e(url('contact.php')) ?>#enquire">Start with a conversation <?= icon('arrow-up-right') ?></a>
+      <a class="link-arrow" href="<?= e(url('contact')) ?>#enquire">Start with a conversation <?= icon('arrow-up-right') ?></a>
     </div>
     <ol class="steps">
       <?php foreach (STEPS as $i => [$title, $text]): ?>
@@ -227,22 +227,21 @@ require ROOT . '/includes/header.php';
   </div>
 </section>
 
-<!-- ============ EMI ============ -->
+<!-- ============ No Cost EMI ============ -->
 <section class="section" id="emi">
   <div class="container emi">
     <div class="emi-copy" data-reveal>
-      <p class="eyebrow">Plan your purchase</p>
-      <h2 class="h2">Know your EMI <em>before you visit.</em></h2>
-      <p class="lead">Adjust the price, down payment, interest rate and tenure to find a monthly figure that suits you. Our team can then help you secure the loan.</p>
+      <p class="eyebrow">No Cost EMI</p>
+      <h2 class="h2">Own it sooner. <em>Pay zero interest.</em></h2>
+      <p class="lead">We offer No Cost EMI on <?= NO_COST_EMI_SHARE ?>% of your home's price, directly from <?= e(SITE_SHORT) ?>. Spread that <?= NO_COST_EMI_SHARE ?>% across easy monthly instalments and pay no interest on it.</p>
       <ul class="checks">
-        <li><span class="tick"><?= icon('check') ?></span>Tie-ups with leading banks and housing-finance companies</li>
-        <li><span class="tick"><?= icon('check') ?></span>Help with eligibility, documents and disbursement</li>
-        <li><span class="tick"><?= icon('check') ?></span>Construction-linked and flexible payment plans</li>
+        <li><span class="tick"><?= icon('check') ?></span>No interest and no bank involved</li>
+        <li><span class="tick"><?= icon('check') ?></span>Tenures from <?= NO_COST_EMI_MIN_MONTHS ?> to <?= NO_COST_EMI_MAX_MONTHS ?> months</li>
+        <li><span class="tick"><?= icon('check') ?></span>The balance <?= 100 - NO_COST_EMI_SHARE ?>% follows the project's payment schedule</li>
       </ul>
     </div>
     <div data-reveal style="--d:.15s">
       <?php part('emi', ['price' => 12000000]) ?>
-      <p class="emi-note">Indicative figures only. Your actual EMI depends on the lender's terms and your eligibility.</p>
     </div>
   </div>
 </section>
@@ -255,7 +254,7 @@ require ROOT . '/includes/header.php';
         <p class="eyebrow">Leadership</p>
         <h2 class="h2">The people behind <em>the promise.</em></h2>
       </div>
-      <a class="link-arrow" href="<?= e(url('about.php')) ?>#team">Meet the team <?= icon('arrow-up-right') ?></a>
+      <a class="link-arrow" href="<?= e(url('about')) ?>#team">Meet the team <?= icon('arrow-up-right') ?></a>
     </div>
     <div class="team-grid">
       <?php foreach (TEAM as $i => $m) part('member', ['m' => $m, 'i' => $i]) ?>

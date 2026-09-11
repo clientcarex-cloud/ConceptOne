@@ -9,7 +9,7 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
     <div class="footer-top">
       <p class="display">Let's find your <em>address.</em></p>
       <div class="btn-row">
-        <a class="btn btn--light" href="<?= e(url('contact.php')) ?>#enquire">Book a site visit <?= icon('arrow-right') ?></a>
+        <a class="btn btn--light" href="<?= e(url('contact')) ?>#enquire">Book a site visit <?= icon('arrow-right') ?></a>
         <a class="btn btn--ghost" href="tel:<?= PHONE_HREF ?>"><?= icon('phone') ?><?= e(PHONE) ?></a>
       </div>
     </div>
@@ -33,7 +33,7 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
           <?php foreach (NAV as [$label, $href]): ?>
             <li><a href="<?= e(url($href)) ?>"><?= e($label) ?></a></li>
           <?php endforeach ?>
-          <li><a href="<?= e(url('contact.php')) ?>#enquire">Book a site visit</a></li>
+          <li><a href="<?= e(url('contact')) ?>#enquire">Book a site visit</a></li>
         </ul>
       </div>
 

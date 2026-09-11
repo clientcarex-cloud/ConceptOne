@@ -26,12 +26,20 @@ const MAIL_TO = EMAIL;
 /** Year the company started — drives the "years of trust" figures. */
 const FOUNDED = 2012;                                    // TODO
 
-/** Header navigation: key => [label, href]. */
+/**
+ * No Cost EMI — offered directly by Concept One (no bank, no interest) on a
+ * fixed share of the property price. The rest follows the payment schedule.
+ */
+const NO_COST_EMI_SHARE      = 30;                      // % of the price payable as interest-free EMIs
+const NO_COST_EMI_MIN_MONTHS = 6;                       // TODO: confirm shortest tenure offered
+const NO_COST_EMI_MAX_MONTHS = 36;                      // TODO: confirm longest tenure offered
+
+/** Header navigation: key => [label, href]. Links are extensionless (see .htaccess). */
 const NAV = [
     'home'     => ['Home', ''],
-    'projects' => ['Projects', 'projects.php'],
-    'about'    => ['About', 'about.php'],
-    'contact'  => ['Contact', 'contact.php'],
+    'projects' => ['Projects', 'projects'],
+    'about'    => ['About', 'about'],
+    'contact'  => ['Contact', 'contact'],
 ];
 
 /** Social profiles: [icon, label, url]. Links set to '#' are hidden. */

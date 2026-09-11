@@ -10,7 +10,7 @@ if ($p === null) {
 
 $page = [
     'nav'         => 'projects',
-    'path'        => 'project.php?p=' . rawurlencode($p['slug']),
+    'path'        => 'project?p=' . rawurlencode($p['slug']),
     'title'       => $p['name'] . ' — ' . $p['config'] . ' in ' . $p['location'] . ', ' . CITY . ' | ' . SITE_NAME,
     'description' => $p['summary'] . ' Starting ' . $p['price'] . '. ' . $p['possession'] . '.',
     'image'       => $p['cover'],
@@ -34,7 +34,7 @@ if ($building) {
 if ($residential) {
     $sections['specifications'] = 'Specifications';
 }
-$sections['emi'] = 'EMI';
+$sections['emi'] = 'No Cost EMI';
 
 require ROOT . '/includes/header.php';
 ?>
@@ -44,7 +44,7 @@ require ROOT . '/includes/header.php';
   <div class="container">
     <ol class="crumbs">
       <li><a href="<?= url() ?>">Home</a></li>
-      <li><a href="<?= e(url('projects.php')) ?>">Projects</a></li>
+      <li><a href="<?= e(url('projects')) ?>">Projects</a></li>
       <li aria-current="page"><?= e($p['name']) ?></li>
     </ol>
     <div class="project-status">
@@ -120,7 +120,7 @@ require ROOT . '/includes/header.php';
                   <td><?= e($conf) ?></td>
                   <td><?= e($size) ?></td>
                   <td><?= e($price) ?></td>
-                  <td><a class="link-arrow" href="<?= e(url('contact.php?interest=' . rawurlencode($interest))) ?>#enquire">Get floor plan <?= icon('arrow-up-right') ?></a></td>
+                  <td><a class="link-arrow" href="<?= e(url('contact?interest=' . rawurlencode($interest))) ?>#enquire">Get floor plan <?= icon('arrow-up-right') ?></a></td>
                 </tr>
               <?php endforeach ?>
             </tbody>
@@ -183,10 +183,9 @@ require ROOT . '/includes/header.php';
       <?php endif ?>
 
       <section id="emi" data-reveal>
-        <p class="eyebrow">EMI calculator</p>
-        <h2 class="h2">Plan <em>your payments.</em></h2>
+        <p class="eyebrow">No Cost EMI</p>
+        <h2 class="h2"><?= NO_COST_EMI_SHARE ?>% of the price, <em>zero interest.</em></h2>
         <?php part('emi', ['price' => $p['price_value']]) ?>
-        <p class="emi-note">Indicative figures only. Your actual EMI depends on the lender's terms and your eligibility.</p>
       </section>
     </div>
 
@@ -198,6 +197,7 @@ require ROOT . '/includes/header.php';
           <strong><?= e($p['price']) ?></strong>
           <span><?= e($p['config']) ?> · <?= e($p['size']) ?></span>
         </div>
+        <a class="emi-offer" href="#emi"><?= icon('percent') ?><span><strong>No Cost EMI</strong> on <?= NO_COST_EMI_SHARE ?>% of the price, from <strong><?= inr(no_cost_emi($p['price_value'])) ?>/month</strong></span></a>
         <hr>
         <h3>Schedule a site visit</h3>
         <?php part('enquiry-form', ['compact' => true, 'project' => $interest, 'source' => 'project:' . $p['slug']]) ?>
@@ -217,7 +217,7 @@ require ROOT . '/includes/header.php';
         <p class="eyebrow">Keep exploring</p>
         <h2 class="h2">You may also <em>like.</em></h2>
       </div>
-      <a class="link-arrow" href="<?= e(url('projects.php')) ?>">All projects <?= icon('arrow-up-right') ?></a>
+      <a class="link-arrow" href="<?= e(url('projects')) ?>">All projects <?= icon('arrow-up-right') ?></a>
     </div>
     <div class="grid-projects">
       <?php foreach ($similar as $i => $s) part('project-card', ['p' => $s, 'i' => $i]) ?>

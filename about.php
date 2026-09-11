@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
 
 $page = [
     'nav'         => 'about',
-    'path'        => 'about.php',
+    'path'        => 'about',
     'title'       => 'About Us — Our Story, Values & Leadership | ' . SITE_NAME,
     'description' => 'Since ' . FOUNDED . ', ' . SITE_NAME . ' has built homes and workspaces across ' . CITY . ' on clear titles, honest pricing and on-schedule delivery. Meet the team behind the promise.',
     'image'       => PHOTOS['about_hero'],
@@ -40,7 +40,7 @@ require ROOT . '/includes/header.php';
           <li><span class="tick"><?= icon('check') ?></span>Apartments, villas and Grade-A workspaces</li>
           <li><span class="tick"><?= icon('check') ?></span>In-house design, engineering and customer care</li>
         </ul>
-        <a class="link-arrow" href="<?= e(url('projects.php')) ?>">See what we've built <?= icon('arrow-up-right') ?></a>
+        <a class="link-arrow" href="<?= e(url('projects')) ?>">See what we've built <?= icon('arrow-up-right') ?></a>
       </div>
     </div>
 

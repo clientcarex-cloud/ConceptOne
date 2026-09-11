@@ -65,10 +65,18 @@ ErrorDocument 404 /404.php
   # RewriteCond %{HTTPS} !=on
   # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Extensionless URLs work as aliases: /about serves about.php.
-  # Internal links deliberately keep the .php extension so no navigation ever
-  # costs an extra 301 round trip; the canonical tag on each page declares the
-  # authoritative URL, so there is no duplicate-content penalty.
+  # Clean URLs: every internal link is extensionless (/about, /project?p=…).
+  # Old or typed .php addresses 301 to the clean form so only one URL is ever
+  # indexed. POSTs are never redirected — a redirect would drop the form data.
+  RewriteCond %{REQUEST_METHOD} !^POST$
+  RewriteCond %{THE_REQUEST} \s/+((?:[^\s?]*/)?)index\.php[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  RewriteCond %{REQUEST_METHOD} !^POST$
+  RewriteCond %{THE_REQUEST} \s/+([^\s?]+?)\.php[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # /about serves about.php internally.
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   # Only rewrite when the .php target really exists. Without this, a missing
@@ -76,11 +84,6 @@ ErrorDocument 404 /404.php
   # until Apache's internal redirect limit returns a 500 instead of the 404 page.
   RewriteCond %{REQUEST_FILENAME}.php -f
   RewriteRule ^(.+?)/?$ $1.php [L]
-
-  # Prefer extensionless URLs in the address bar instead? Uncomment the two
-  # lines below to 301 /about.php to /about. Costs one redirect per click.
-  # RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
-  # RewriteRule ^ /%1 [R=301,L]
 </IfModule>
 
 # --- Hardening -----------------------------------------------------------
@@ -93,3 +96,8 @@ Options -Indexes
 <FilesMatch "\.(log|md|json|lock)$">
   Require all denied
 </FilesMatch>
+
+# Local-preview router for PHP's built-in server; never served in production.
+<Files "dev-router.php">
+  Require all denied
+</Files>

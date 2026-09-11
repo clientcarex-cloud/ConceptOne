@@ -78,7 +78,23 @@ function project(string $slug): ?array
 
 function project_url(array $p): string
 {
-    return url('project.php?p=' . rawurlencode($p['slug']));
+    return url('project?p=' . rawurlencode($p['slug']));
+}
+
+/** Rupees with Indian digit grouping: ₹12,34,567. */
+function inr(float $amount): string
+{
+    $n    = (string) (int) round($amount);
+    $last = substr($n, -3);
+    $rest = substr($n, 0, -3);
+
+    return '₹' . ($rest !== '' ? preg_replace('/\B(?=(\d{2})+$)/', ',', $rest) . ',' : '') . $last;
+}
+
+/** Monthly No Cost EMI on a price; defaults to the longest tenure (the lowest instalment). */
+function no_cost_emi(int $price, int $months = NO_COST_EMI_MAX_MONTHS): float
+{
+    return $price * NO_COST_EMI_SHARE / 100 / $months;
 }
 
 /** Render a partial from includes/partials/. */

@@ -193,7 +193,7 @@
     run();
   }
 
-  /* ---- EMI calculator -------------------------------------------------- */
+  /* ---- No Cost EMI calculator ------------------------------------------ */
   const inr = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
   const inrShort = (n) => {
     if (n >= 1e7) return "₹" + (n / 1e7).toFixed(2).replace(/\.?0+$/, "") + " Cr";
@@ -204,28 +204,24 @@
   $$("[data-emi]").forEach((root) => {
     const inp = (n) => $(`[name=${n}]`, root);
     const out = (n) => $(`[data-out=${n}]`, root);
-    const price = inp("price"), down = inp("down"), rate = inp("rate"), years = inp("years");
+    const price = inp("price"), months = inp("months");
+    const share = parseFloat(root.dataset.share) / 100; // part of the price on No Cost EMI
 
     const fill = (el) => el.style.setProperty("--fill", ((el.value - el.min) / (el.max - el.min)) * 100 + "%");
 
+    // No interest: the covered share is simply split into equal monthly instalments.
     const calc = () => {
-      [price, down, rate, years].forEach(fill);
-      const P = price.value * (1 - down.value / 100);
-      const r = rate.value / 1200;
-      const n = years.value * 12;
-      const emi = r === 0 ? P / n : (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-      const total = emi * n;
+      [price, months].forEach(fill);
+      const covered = price.value * share;
       out("price").textContent = inrShort(+price.value);
-      out("down").textContent = down.value + "% · " + inrShort(price.value * down.value / 100);
-      out("rate").textContent = (+rate.value).toFixed(2) + "%";
-      out("years").textContent = years.value + " years";
-      out("emi").textContent = inr(emi);
-      out("loan").textContent = inr(P);
-      out("interest").textContent = inr(total - P);
-      out("total").textContent = inr(total);
-      root.style.setProperty("--p", (P / total) * 100 + "%");
+      out("months").textContent = months.value + " months";
+      out("emi").textContent = inr(covered / months.value);
+      out("term").textContent = "every month for " + months.value + " months";
+      out("share").textContent = inr(covered);
+      out("balance").textContent = inr(price.value - covered);
+      root.style.setProperty("--p", share * 100 + "%");
     };
-    [price, down, rate, years].forEach((el) => el.addEventListener("input", calc));
+    [price, months].forEach((el) => el.addEventListener("input", calc));
     calc();
   });
 
