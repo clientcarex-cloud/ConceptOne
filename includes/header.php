@@ -11,9 +11,17 @@ $schema    = [
     'name'      => SITE_NAME,
     'url'       => SITE_URL,
     'logo'      => SITE_URL . '/assets/img/Logo.png',
-    'telephone' => PHONE,
+    'telephone' => [PHONE, PHONE_ALT],
     'email'     => EMAIL,
-    'address'   => ['@type' => 'PostalAddress', 'addressLocality' => CITY, 'addressRegion' => 'Telangana', 'addressCountry' => 'IN'],
+    'address'   => [
+        '@type'           => 'PostalAddress',
+        'streetAddress'   => 'Plot No. 8-1-400/60 & 61, 2nd Floor, Westfield Center, above Dominos Pizza, Deluxe Colony, Janaki Nagar Colony, Toli Chowki',
+        'addressLocality' => CITY,
+        'addressRegion'   => 'Telangana',
+        'postalCode'      => '500008',
+        'addressCountry'  => 'IN',
+    ],
+    'openingHours' => 'Mo-Su 12:00-20:00',
 ];
 ?>
 <!DOCTYPE html>
@@ -81,7 +89,9 @@ $schema    = [
     <?php endforeach ?>
   </nav>
   <div class="mobile-menu-foot">
-    <a href="tel:<?= PHONE_HREF ?>"><?= icon('phone') ?><?= e(PHONE) ?></a>
+    <?php foreach (phones() as [$label, $href]): ?>
+      <a href="tel:<?= e($href) ?>"><?= icon('phone') ?><?= e($label) ?></a>
+    <?php endforeach ?>
     <a href="mailto:<?= EMAIL ?>"><?= icon('mail') ?><?= e(EMAIL) ?></a>
     <a class="btn btn--light" href="<?= e(url('contact')) ?>#enquire">Book a site visit <?= icon('arrow-right') ?></a>
   </div>

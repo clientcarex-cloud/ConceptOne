@@ -23,16 +23,17 @@ require ROOT . '/includes/header.php';
       <li><a href="<?= url() ?>">Home</a></li>
       <li aria-current="page">Contact</li>
     </ol>
-    <h1>Let's talk <em>homes.</em></h1>
+    <h1>Contact <em>Us.</em></h1>
     <p class="lead">Book a site visit, request a brochure or simply ask a question. Our sales team will get back to you soon.</p>
   </div>
 </section>
 
 <div class="container">
   <div class="contact-cards">
-    <a class="contact-card" href="tel:<?= PHONE_HREF ?>" data-reveal>
-      <span class="ic"><?= icon('phone') ?></span><small>Call us</small><strong><?= e(PHONE) ?></strong>
-    </a>
+    <div class="contact-card" data-reveal>
+      <span class="ic"><?= icon('phone') ?></span><small>Call us</small>
+      <strong><?php foreach (phones() as $i => [$label, $href]): ?><a href="tel:<?= e($href) ?>"><?= e($label) ?></a><?= $i === 0 ? '<br>' : '' ?><?php endforeach ?></strong>
+    </div>
     <a class="contact-card" href="<?= e(wa_link('Hi Concept One, I have a question.')) ?>" target="_blank" rel="noopener" data-reveal style="--d:.08s">
       <span class="ic"><?= icon('whatsapp') ?></span><small>WhatsApp</small><strong>Chat with sales</strong>
     </a>
@@ -65,7 +66,7 @@ require ROOT . '/includes/header.php';
         <ul class="info-list">
           <li><?= icon('map-pin') ?><div><small>Address</small><?= implode('<br>', array_map('e', ADDRESS)) ?></div></li>
           <li><?= icon('clock') ?><div><small>Hours</small><?= e(HOURS) ?></div></li>
-          <li><?= icon('phone') ?><div><small>Phone</small><a href="tel:<?= PHONE_HREF ?>"><?= e(PHONE) ?></a></div></li>
+          <li><?= icon('phone') ?><div><small>Phone</small><?php foreach (phones() as $i => [$label, $href]): ?><?= $i ? '<br>' : '' ?><a href="tel:<?= e($href) ?>"><?= e($label) ?></a><?php endforeach ?></div></li>
           <li><?= icon('mail') ?><div><small>Email</small><a href="mailto:<?= EMAIL ?>"><?= e(EMAIL) ?></a></div></li>
         </ul>
         <a class="btn btn--wa btn--block" href="<?= e(wa_link('Hi Concept One, I would like to book a site visit.')) ?>" target="_blank" rel="noopener"><?= icon('whatsapp') ?>Book on WhatsApp</a>

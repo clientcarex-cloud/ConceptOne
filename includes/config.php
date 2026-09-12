@@ -12,13 +12,22 @@ const SITE_SHORT = 'Concept One';
 const SITE_URL   = 'https://conceptonedevelopers.com';   // TODO: confirm the live domain
 const CITY       = 'Hyderabad';
 
-const PHONE      = '+91 90000 00000';                    // TODO: sales line as displayed
-const PHONE_HREF = '+919000000000';                      // TODO: same number, digits only
-const WHATSAPP   = '919000000000';                       // TODO: country code + number, digits only
+/** Sales lines. PHONE is the primary one shown wherever there is room for only one. */
+const PHONE          = '+91 97018 15185';
+const PHONE_HREF     = '+919701815185';
+const PHONE_ALT      = '+91 90307 43030';
+const PHONE_ALT_HREF = '+919030743030';
+
+const WHATSAPP   = '919701815185';                       // country code + number, digits only
 const EMAIL      = 'sales@conceptonedevelopers.com';     // TODO
-const ADDRESS    = ['Concept One Developers', 'Hyderabad, Telangana, India']; // TODO: street address
-const HOURS      = 'Mon – Sat · 10:00 am – 7:00 pm';
-const MAP_QUERY  = 'Hyderabad, Telangana';               // what the contact-page map centres on
+const ADDRESS    = [
+    'Plot No. 8-1-400/60 & 61, 2nd Floor',
+    'Westfield Center, above Dominos Pizza',
+    'Deluxe Colony, Janaki Nagar Colony',
+    'Toli Chowki, Hyderabad, Telangana 500008',
+];
+const HOURS      = 'All days · 12:00 pm – 8:00 pm';
+const MAP_QUERY  = 'Westfield Center, Toli Chowki, Hyderabad, Telangana 500008'; // what the contact-page map centres on
 
 /** Where enquiries are delivered. */
 const MAIL_TO = EMAIL;
@@ -38,7 +47,7 @@ const NO_COST_EMI_MAX_MONTHS = 36;                      // TODO: confirm longest
 const NAV = [
     'home'     => ['Home', ''],
     'projects' => ['Projects', 'projects'],
-    'about'    => ['About', 'about'],
+    'about'    => ['About Us', 'about'],
     'contact'  => ['Contact', 'contact'],
 ];
 

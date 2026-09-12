@@ -49,7 +49,9 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
       <div>
         <h2>Get in touch</h2>
         <ul class="footer-contact">
-          <li><?= icon('phone') ?><a href="tel:<?= PHONE_HREF ?>"><?= e(PHONE) ?></a></li>
+          <?php foreach (phones() as [$label, $href]): ?>
+            <li><?= icon('phone') ?><a href="tel:<?= e($href) ?>"><?= e($label) ?></a></li>
+          <?php endforeach ?>
           <li><?= icon('mail') ?><a href="mailto:<?= EMAIL ?>"><?= e(EMAIL) ?></a></li>
           <li><?= icon('whatsapp') ?><a href="<?= e(wa_link()) ?>" target="_blank" rel="noopener">Chat on WhatsApp</a></li>
           <li><?= icon('map-pin') ?><span><?= implode('<br>', array_map('e', ADDRESS)) ?></span></li>

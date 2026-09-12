@@ -29,14 +29,14 @@ const HERO_SLIDES = [
     ['1613490493576-7fde63acd811', 'palm-grove-estates'],
 ];
 
-/** Headline figures. SAMPLE — confirm every number. */
+/** Headline figures. Project counts are confirmed; the rest are SAMPLE — confirm them. */
 function stats(): array
 {
     return [
         ['n' => years_active(), 'dec' => 0, 'suffix' => '+', 'label' => 'Years building in ' . CITY],
-        ['n' => 2.4, 'dec' => 1, 'suffix' => 'M', 'label' => 'Sq. ft. delivered'],
+        ['n' => 11, 'dec' => 0, 'suffix' => '', 'label' => 'Delivered projects'],
+        ['n' => 3, 'dec' => 0, 'suffix' => '', 'label' => 'Ongoing projects'],
         ['n' => 1800, 'dec' => 0, 'suffix' => '+', 'label' => 'Families moved in'],
-        ['n' => 14, 'dec' => 0, 'suffix' => '', 'label' => 'Landmark projects'],
     ];
 }
 

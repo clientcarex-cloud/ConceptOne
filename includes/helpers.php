@@ -59,6 +59,12 @@ function photo_img(string $id, string $alt, string $sizes = '100vw', array $attr
     return '<img src="' . e(photo($id, 1200)) . '" srcset="' . e(photo_srcset($id)) . '" sizes="' . e($sizes) . '" alt="' . e($alt) . '"' . $extra . '>';
 }
 
+/** Both sales lines as [display, tel href] pairs, primary first. */
+function phones(): array
+{
+    return [[PHONE, PHONE_HREF], [PHONE_ALT, PHONE_ALT_HREF]];
+}
+
 /** WhatsApp deep link with an optional pre-filled message. */
 function wa_link(string $text = ''): string
 {
