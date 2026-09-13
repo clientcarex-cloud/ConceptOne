@@ -64,7 +64,7 @@ $interest = $v['interest'] ?? ($project ?? (string) ($_GET['interest'] ?? ''));
       <label for="<?= $id ?>budget">Budget</label>
       <select id="<?= $id ?>budget" name="budget">
         <option value="">Select a range</option>
-        <?php foreach ([...array_column(BUDGETS, 0), 'Not decided yet'] as $opt): ?>
+        <?php foreach (BUDGETS as $opt): ?>
           <option<?= $opt === ($v['budget'] ?? '') ? ' selected' : '' ?>><?= e($opt) ?></option>
         <?php endforeach ?>
       </select>

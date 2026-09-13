@@ -4,7 +4,7 @@
  * as interest-free monthly instalments; the balance follows the payment schedule.
  * @var int $price  starting property price in ₹
  */
-$price   = (int) min(max($price ?? 12000000, 2000000), 100000000);
+$price   = (int) min(max($price ?? 6000000, 2000000), 30000000);
 $months  = (int) min(NO_COST_EMI_MAX_MONTHS, max(NO_COST_EMI_MIN_MONTHS, 24));
 $balance = 100 - NO_COST_EMI_SHARE;
 ?>
@@ -12,7 +12,7 @@ $balance = 100 - NO_COST_EMI_SHARE;
   <div>
     <div class="range">
       <div class="range-head"><label for="emi-price">Property price</label><output data-out="price" for="emi-price"></output></div>
-      <input id="emi-price" type="range" name="price" min="2000000" max="100000000" step="100000" value="<?= $price ?>">
+      <input id="emi-price" type="range" name="price" min="2000000" max="30000000" step="100000" value="<?= $price ?>">
     </div>
     <div class="range">
       <div class="range-head"><label for="emi-months">EMI tenure</label><output data-out="months" for="emi-months"></output></div>

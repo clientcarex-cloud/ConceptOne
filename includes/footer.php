@@ -7,9 +7,9 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
 <footer class="site-footer">
   <div class="container">
     <div class="footer-top">
-      <p class="display">Let's find your <em>address.</em></p>
+      <p class="display">One Concept. One Vision. <em>Your Dream Home.</em></p>
       <div class="btn-row">
-        <a class="btn btn--light" href="<?= e(url('contact')) ?>#enquire">Book a site visit <?= icon('arrow-right') ?></a>
+        <a class="btn btn--light" href="<?= e(enquire_url('Schedule a site visit')) ?>">Schedule a site visit <?= icon('arrow-right') ?></a>
         <a class="btn btn--ghost" href="tel:<?= PHONE_HREF ?>"><?= icon('phone') ?><?= e(PHONE) ?></a>
       </div>
     </div>
@@ -17,7 +17,8 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="<?= asset('assets/img/brand/logo-light.png') ?>" alt="<?= e(SITE_NAME) ?>" width="430" height="160" loading="lazy">
-        <p>Apartments, villas and workspaces across <?= CITY ?>, designed around the way you live and delivered on schedule.</p>
+        <p>Building affordable homes. Creating better communities. Making homeownership easier.</p>
+        <p class="footer-since">Building in <?= CITY ?> since <?= FOUNDED ?> · Formerly SmartCity Developers</p>
         <?php if ($socials): ?>
           <div class="socials">
             <?php foreach ($socials as [$ic, $label, $href]): ?>
@@ -28,12 +29,14 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
       </div>
 
       <div>
-        <h2>Explore</h2>
+        <h2>Company</h2>
         <ul>
-          <?php foreach (NAV as [$label, $href]): ?>
+          <li><a href="<?= e(url(NAV['about'][1])) ?>"><?= e(NAV['about'][0]) ?></a></li>
+          <?php foreach (NAV['about'][2] as [$label, $href]): ?>
             <li><a href="<?= e(url($href)) ?>"><?= e($label) ?></a></li>
           <?php endforeach ?>
-          <li><a href="<?= e(url('contact')) ?>#enquire">Book a site visit</a></li>
+          <li><a href="<?= e(url(NAV['why'][1])) ?>"><?= e(NAV['why'][0]) ?></a></li>
+          <li><a href="<?= e(url('contact')) ?>">Contact</a></li>
         </ul>
       </div>
 
@@ -43,6 +46,7 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
           <?php foreach (PROJECTS as $p): ?>
             <li><a href="<?= e(project_url($p)) ?>"><?= e($p['name']) ?></a></li>
           <?php endforeach ?>
+          <li><a href="<?= e(url('projects#ongoing')) ?>">Ongoing projects</a></li>
         </ul>
       </div>
 
@@ -62,24 +66,14 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
 
     <div class="footer-bottom">
       <p>© <?= date('Y') ?> <?= e(SITE_NAME) ?>. All rights reserved.</p>
-      <p>RERA registration details are listed on each project page.</p>
+      <p><?= e(TAGLINE) ?></p>
     </div>
-    <p class="footer-note">Disclaimer: Images are artistic impressions and for representation only. <?= e(PRICE_NOTE) ?> Specifications, amenities and timelines may change. The information on this website does not constitute an offer or contract.</p>
+    <p class="footer-note">Disclaimer: Photographs on this website are representative and may not depict the actual projects. <?= e(PAYMENT_NOTE) ?> The information on this website does not constitute an offer or contract.</p>
   </div>
-  <div class="footer-word" aria-hidden="true">CONCEPT ONE</div>
+  <div class="footer-word" aria-hidden="true">CONCEPTONE</div>
 </footer>
 
-<a class="fab" href="<?= e(wa_link('Hi Concept One, I would like to know more about your projects.')) ?>" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><?= icon('whatsapp') ?></a>
-
-<?php if (!empty($page['lightbox'])): ?>
-<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
-  <button class="round-btn round-btn--light lb-close" type="button" data-lb-close aria-label="Close"><?= icon('x') ?></button>
-  <button class="round-btn round-btn--light lb-prev" type="button" data-lb-prev aria-label="Previous photo"><?= icon('chevron-left') ?></button>
-  <img alt="">
-  <button class="round-btn round-btn--light lb-next" type="button" data-lb-next aria-label="Next photo"><?= icon('chevron-right') ?></button>
-  <p class="lb-count" data-lb-count></p>
-</dialog>
-<?php endif ?>
+<a class="fab" href="<?= e(wa_link('Hi ConceptOne, I would like to know more about your projects.')) ?>" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><?= icon('whatsapp') ?></a>
 
 <script src="<?= asset('assets/js/main.js') ?>" defer></script>
 </body>

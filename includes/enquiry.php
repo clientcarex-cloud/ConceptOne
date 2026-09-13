@@ -102,7 +102,7 @@ function handle_enquiry(): array
     if (!in_array($values['interest'], interest_options(), true)) {
         $values['interest'] = '';
     }
-    if (!in_array($values['budget'], [...array_column(BUDGETS, 0), 'Not decided yet'], true)) {
+    if (!in_array($values['budget'], BUDGETS, true)) {
         $values['budget'] = '';
     }
 

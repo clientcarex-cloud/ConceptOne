@@ -1,19 +1,25 @@
 <?php
 /**
  * Document head, site header and mobile menu.
- * @var array $page  title, description, nav, path, [image], [noindex], [lightbox]
+ * @var array $page  title, description, nav, path, [image], [noindex]
  */
 $canonical = SITE_URL . '/' . ($page['path'] ?? '');
 $ogImage   = isset($page['image']) ? photo($page['image'], 1200, 70) : SITE_URL . '/assets/img/Logo.png';
+$current   = $page['nav'] ?? '';
 $schema    = [
-    '@context'  => 'https://schema.org',
-    '@type'     => 'RealEstateAgent',
-    'name'      => SITE_NAME,
-    'url'       => SITE_URL,
-    'logo'      => SITE_URL . '/assets/img/Logo.png',
-    'telephone' => [PHONE, PHONE_ALT],
-    'email'     => EMAIL,
-    'address'   => [
+    '@context'      => 'https://schema.org',
+    '@type'         => 'RealEstateAgent',
+    'name'          => SITE_NAME,
+    'alternateName' => 'Concept One Developers',
+    'slogan'        => TAGLINE,
+    'url'           => SITE_URL,
+    'logo'          => SITE_URL . '/assets/img/Logo.png',
+    'foundingDate'  => (string) FOUNDED,
+    'founder'       => array_map(fn ($f) => ['@type' => 'Person', 'name' => $f['name'], 'jobTitle' => $f['role']], FOUNDERS),
+    'areaServed'    => CITY,
+    'telephone'     => [PHONE, PHONE_ALT],
+    'email'         => EMAIL,
+    'address'       => [
         '@type'           => 'PostalAddress',
         'streetAddress'   => 'Plot No. 8-1-400/60 & 61, 2nd Floor, Westfield Center, above Dominos Pizza, Deluxe Colony, Janaki Nagar Colony, Toli Chowki',
         'addressLocality' => CITY,
@@ -21,7 +27,7 @@ $schema    = [
         'postalCode'      => '500008',
         'addressCountry'  => 'IN',
     ],
-    'openingHours' => 'Mo-Su 12:00-20:00',
+    'openingHours'  => 'Mo-Su 12:00-20:00',
 ];
 ?>
 <!DOCTYPE html>
@@ -67,14 +73,28 @@ $schema    = [
     </a>
 
     <nav class="nav" aria-label="Main">
-      <?php foreach (NAV as $key => [$label, $href]): ?>
-        <a href="<?= e(url($href)) ?>"<?= active($key === ($page['nav'] ?? '')) ?>><?= e($label) ?></a>
+      <?php foreach (NAV as $key => [$label, $href, $children]): ?>
+        <?php if ($children): ?>
+          <div class="nav-item" data-dropdown>
+            <a href="<?= e(url($href)) ?>"<?= active($key === $current) ?>><?= e($label) ?></a>
+            <button class="nav-caret" type="button" aria-expanded="false" aria-controls="nav-<?= e($key) ?>"><span class="sr-only"><?= e($label) ?> sections</span><?= icon('chevron-down') ?></button>
+            <div class="nav-menu" id="nav-<?= e($key) ?>">
+              <ul>
+                <?php foreach ($children as [$childLabel, $childHref]): ?>
+                  <li><a href="<?= e(url($childHref)) ?>"><?= e($childLabel) ?></a></li>
+                <?php endforeach ?>
+              </ul>
+            </div>
+          </div>
+        <?php else: ?>
+          <a href="<?= e(url($href)) ?>"<?= active($key === $current) ?>><?= e($label) ?></a>
+        <?php endif ?>
       <?php endforeach ?>
     </nav>
 
     <div class="header-actions">
       <a class="header-phone" href="tel:<?= PHONE_HREF ?>"><?= icon('phone') ?><?= e(PHONE) ?></a>
-      <a class="btn btn--sm btn-cta" href="<?= e(url('contact')) ?>#enquire">Book a site visit</a>
+      <a class="btn btn--sm btn-cta" href="<?= e(enquire_url('Schedule a site visit')) ?>">Schedule a site visit</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
         <?= icon('menu', 'icon icon-open') ?><?= icon('x', 'icon icon-close') ?>
       </button>
@@ -84,8 +104,17 @@ $schema    = [
 
 <div class="mobile-menu" id="mobile-menu">
   <nav aria-label="Mobile">
-    <?php foreach (NAV as $key => [$label, $href]): ?>
-      <a href="<?= e(url($href)) ?>"<?= active($key === ($page['nav'] ?? '')) ?>><?= e($label) ?></a>
+    <?php foreach (NAV as $key => [$label, $href, $children]): ?>
+      <div class="m-item">
+        <a class="m-link" href="<?= e(url($href)) ?>"<?= active($key === $current) ?>><?= e($label) ?></a>
+        <?php if ($children): ?>
+          <ul class="m-sub">
+            <?php foreach ($children as [$childLabel, $childHref]): ?>
+              <li><a href="<?= e(url($childHref)) ?>"><?= e($childLabel) ?></a></li>
+            <?php endforeach ?>
+          </ul>
+        <?php endif ?>
+      </div>
     <?php endforeach ?>
   </nav>
   <div class="mobile-menu-foot">
@@ -93,7 +122,7 @@ $schema    = [
       <a href="tel:<?= e($href) ?>"><?= icon('phone') ?><?= e($label) ?></a>
     <?php endforeach ?>
     <a href="mailto:<?= EMAIL ?>"><?= icon('mail') ?><?= e(EMAIL) ?></a>
-    <a class="btn btn--light" href="<?= e(url('contact')) ?>#enquire">Book a site visit <?= icon('arrow-right') ?></a>
+    <a class="btn btn--light" href="<?= e(enquire_url('Schedule a site visit')) ?>">Schedule a site visit <?= icon('arrow-right') ?></a>
   </div>
 </div>
 

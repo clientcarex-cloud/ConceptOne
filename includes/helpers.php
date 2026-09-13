@@ -59,6 +59,15 @@ function photo_img(string $id, string $alt, string $sizes = '100vw', array $attr
     return '<img src="' . e(photo($id, 1200)) . '" srcset="' . e(photo_srcset($id)) . '" sizes="' . e($sizes) . '" alt="' . e($alt) . '"' . $extra . '>';
 }
 
+/** A founder's portrait from assets/img/team, WebP first. */
+function founder_img(array $f, string $class = ''): string
+{
+    $stem = 'assets/img/team/' . $f['photo'];
+
+    return '<picture><source type="image/webp" srcset="' . asset($stem . '.webp') . '">'
+        . '<img' . ($class !== '' ? ' class="' . e($class) . '"' : '') . ' src="' . asset($stem . '.jpg') . '" alt="Portrait of ' . e($f['name']) . '" width="640" height="800" loading="lazy" decoding="async"></picture>';
+}
+
 /** Both sales lines as [display, tel href] pairs, primary first. */
 function phones(): array
 {
@@ -82,25 +91,27 @@ function project(string $slug): ?array
     return null;
 }
 
+/** Projects for a list of slugs, in that order. Unknown slugs are skipped. */
+function projects_by_slug(array $slugs): array
+{
+    return array_values(array_filter(array_map('project', $slugs)));
+}
+
 function project_url(array $p): string
 {
     return url('project?p=' . rawurlencode($p['slug']));
 }
 
-/** Rupees with Indian digit grouping: ₹12,34,567. */
-function inr(float $amount): string
+/** Contact-page URL with the enquiry form's "interested in" pre-selected. */
+function enquire_url(string $interest = ''): string
 {
-    $n    = (string) (int) round($amount);
-    $last = substr($n, -3);
-    $rest = substr($n, 0, -3);
-
-    return '₹' . ($rest !== '' ? preg_replace('/\B(?=(\d{2})+$)/', ',', $rest) . ',' : '') . $last;
+    return url('contact' . ($interest !== '' ? '?interest=' . rawurlencode($interest) : '')) . '#enquire';
 }
 
-/** Monthly No Cost EMI on a price; defaults to the longest tenure (the lowest instalment). */
-function no_cost_emi(int $price, int $months = NO_COST_EMI_MAX_MONTHS): float
+/** A STATS figure as display text, e.g. "6+". */
+function figure(string $key): string
 {
-    return $price * NO_COST_EMI_SHARE / 100 / $months;
+    return STATS[$key]['n'] . STATS[$key]['suffix'];
 }
 
 /** Render a partial from includes/partials/. */
@@ -108,10 +119,4 @@ function part(string $name, array $data = []): void
 {
     extract($data, EXTR_SKIP);
     require ROOT . '/includes/partials/' . $name . '.php';
-}
-
-/** Years since FOUNDED, for copy like "13 years". */
-function years_active(): int
-{
-    return max(1, (int) date('Y') - FOUNDED);
 }

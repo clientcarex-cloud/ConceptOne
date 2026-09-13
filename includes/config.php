@@ -7,8 +7,9 @@
  */
 declare(strict_types=1);
 
-const SITE_NAME  = 'Concept One Developers';
-const SITE_SHORT = 'Concept One';
+const SITE_NAME  = 'ConceptOne Developers';
+const SITE_SHORT = 'ConceptOne';
+const TAGLINE    = 'One Concept. One Vision. Your Dream Home.';
 const SITE_URL   = 'https://conceptonedevelopers.com';   // TODO: confirm the live domain
 const CITY       = 'Hyderabad';
 
@@ -32,32 +33,47 @@ const MAP_QUERY  = 'Westfield Center, Toli Chowki, Hyderabad, Telangana 500008';
 /** Where enquiries are delivered. */
 const MAIL_TO = EMAIL;
 
-/** Year the company started — drives the "years of trust" figures. */
-const FOUNDED = 2012;                                    // TODO
+/** The development journey began with the first project, signed in 2019. */
+const FOUNDED = 2019;
+/** SmartCity Developers became ConceptOne Developers. */
+const REBRANDED = 2023;
 
 /**
- * No Cost EMI — offered directly by Concept One (no bank, no interest) on a
+ * No Cost EMI — offered directly by ConceptOne (no bank, no interest) on a
  * fixed share of the property price. The rest follows the payment schedule.
  */
 const NO_COST_EMI_SHARE      = 30;                      // % of the price payable as interest-free EMIs
 const NO_COST_EMI_MIN_MONTHS = 6;                       // TODO: confirm shortest tenure offered
 const NO_COST_EMI_MAX_MONTHS = 36;                      // TODO: confirm longest tenure offered
 
-/** Header navigation: key => [label, href]. Links are extensionless (see .htaccess). */
+/**
+ * Header navigation: key => [label, href, children]. Children are [label, href]
+ * and open as a dropdown on desktop; the mobile menu lists them flat.
+ * Links are extensionless (see .htaccess).
+ */
 const NAV = [
-    'home'     => ['Home', ''],
-    'projects' => ['Projects', 'projects'],
-    'about'    => ['About Us', 'about'],
-    'contact'  => ['Contact', 'contact'],
+    'home'     => ['Home', '', []],
+    'about'    => ['About Us', 'about', [
+        ['Our Story', 'about#story'],
+        ['Our Journey', 'about#journey'],
+        ['Our Founders', 'about#founders'],
+        ['Mission, Vision & Values', 'about#mission'],
+        ["Founders' Message", 'about#message'],
+    ]],
+    'projects' => ['Projects', 'projects', [
+        ['Delivered Projects', 'projects#delivered'],
+        ['Ongoing Projects', 'projects#ongoing'],
+        ['Payment Options', 'projects#ownership'],
+    ]],
+    'why'      => ['Why ConceptOne', '/#why', []],
+    'contact'  => ['Contact', 'contact', []],
 ];
 
 /** Social profiles: [icon, label, url]. Links set to '#' are hidden. */
 const SOCIAL = [
-    ['instagram', 'Instagram', '#'],                     // TODO
-    ['facebook', 'Facebook', '#'],                       // TODO
-    ['linkedin', 'LinkedIn', '#'],                       // TODO
-    ['youtube', 'YouTube', '#'],                         // TODO
+    ['instagram', 'Instagram', '#'],                     // TODO: client to share the handle
+    ['facebook', 'Facebook', '#'],                       // TODO: client to share the page
 ];
 
-/** Shown under every price. */
-const PRICE_NOTE = 'Prices are indicative and exclusive of registration, GST and other statutory charges.';
+/** Shown wherever payment plans are mentioned. */
+const PAYMENT_NOTE = 'No Cost EMI, installment and Halaal-oriented payment options are subject to eligibility, the applicable structure and the terms of each project agreement.';

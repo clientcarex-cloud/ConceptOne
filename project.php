@@ -8,34 +8,22 @@ if ($p === null) {
     exit;
 }
 
+$facts    = $p['facts'] ?? [];
+$bar      = $facts ? array_slice($facts, 0, 4, true) : ['Status' => STATUSES[$p['status']], 'Location' => $p['location'], 'Type' => $p['config'], 'Developer' => SITE_NAME];
+$story    = $p['story'] ?? [$p['summary']];
+$interest = 'Homes like ' . $p['name'];
+
+// "More projects": the next three in listing order, wrapping around.
+$index   = (int) array_search($p['slug'], array_column(PROJECTS, 'slug'), true);
+$similar = array_map(fn (int $k) => PROJECTS[($index + $k) % count(PROJECTS)], [1, 2, 3]);
+
 $page = [
     'nav'         => 'projects',
     'path'        => 'project?p=' . rawurlencode($p['slug']),
     'title'       => $p['name'] . ' — ' . $p['config'] . ' in ' . $p['location'] . ', ' . CITY . ' | ' . SITE_NAME,
-    'description' => $p['summary'] . ' Starting ' . $p['price'] . '. ' . $p['possession'] . '.',
+    'description' => $p['summary'] . ' A ' . SITE_NAME . ' project in ' . $p['location'] . ', ' . CITY . '.',
     'image'       => $p['cover'],
-    'lightbox'    => true,
 ];
-
-$images      = array_slice(array_merge([$p['cover']], $p['gallery']), 0, 5);
-$residential = $p['type'] !== 'Commercial';
-$building    = $p['status'] === 'ongoing' && $p['milestones'];
-$interest    = $p['name'] . ' — ' . $p['location'];
-
-// Similar projects: same type first, then the rest.
-$others = array_values(array_filter(PROJECTS, fn ($x) => $x['slug'] !== $p['slug']));
-usort($others, fn ($a, $b) => ($b['type'] === $p['type']) <=> ($a['type'] === $p['type']));
-$similar = array_slice($others, 0, 3);
-
-$sections = ['overview' => 'Overview', 'gallery' => 'Gallery', 'plans' => 'Plans & pricing', 'amenities' => 'Amenities', 'location' => 'Location'];
-if ($building) {
-    $sections['progress'] = 'Progress';
-}
-if ($residential) {
-    $sections['specifications'] = 'Specifications';
-}
-$sections['emi'] = 'No Cost EMI';
-
 require ROOT . '/includes/header.php';
 ?>
 
@@ -52,157 +40,71 @@ require ROOT . '/includes/header.php';
       <span class="project-loc"><?= icon('map-pin') ?><?= e($p['location'] . ', ' . CITY) ?></span>
     </div>
     <h1><?= e($p['name']) ?></h1>
-    <p class="lead"><?= e($p['tagline']) ?></p>
+    <p class="lead"><?= e($p['summary']) ?></p>
     <div class="facts-bar">
-      <div class="fact"><span>Configuration</span><strong><?= e($p['config']) ?></strong></div>
-      <div class="fact"><span>Size</span><strong><?= e($p['size']) ?></strong></div>
-      <div class="fact"><span>Starting price</span><strong><?= e($p['price']) ?></strong></div>
-      <div class="fact"><span>Possession</span><strong><?= e($p['possession']) ?></strong></div>
+      <?php foreach ($bar as $label => $value): ?>
+        <div class="fact"><span><?= e($label) ?></span><strong><?= e($value) ?></strong></div>
+      <?php endforeach ?>
     </div>
   </div>
 </section>
-
-<nav class="subnav" aria-label="Project sections">
-  <div class="container">
-    <ul>
-      <?php foreach ($sections as $id => $label): ?>
-        <li><a href="#<?= $id ?>"><?= e($label) ?></a></li>
-      <?php endforeach ?>
-    </ul>
-  </div>
-</nav>
 
 <div class="container">
   <div class="detail">
     <div class="detail-main">
 
       <section id="overview" data-reveal>
-        <p class="eyebrow">Overview</p>
-        <h2 class="h2">Why you'll love <em>living here.</em></h2>
+        <p class="eyebrow"><?= e($p['chapter'] ?? 'Overview') ?></p>
+        <h2 class="h2"><?= $facts ? 'The story of <em>' . e($p['name']) . '.</em>' : 'Built <em>with purpose.</em>' ?></h2>
         <div class="prose">
-          <?php foreach ($p['overview'] as $para): ?><p><?= e($para) ?></p><?php endforeach ?>
+          <?php foreach ($story as $para): ?><p><?= e($para) ?></p><?php endforeach ?>
+          <?php if (!$facts): ?>
+            <p><?= e($p['name']) ?> is one of the <?= figure('delivered') ?> projects <?= e(SITE_NAME) ?> has delivered across <?= CITY ?>, planned around our four principles: affordability, quality, transparency and easier ownership.</p>
+          <?php endif ?>
         </div>
-        <ul class="highlights">
-          <?php foreach ($p['highlights'] as $h): ?>
-            <li><span class="tick"><?= icon('check') ?></span><?= e($h) ?></li>
-          <?php endforeach ?>
-        </ul>
-        <div class="spec-row">
-          <?php foreach ($p['specs'] as $label => $value): ?>
-            <div><strong><?= e($value) ?></strong><span><?= e($label) ?></span></div>
-          <?php endforeach ?>
-        </div>
+        <?php if ($facts): ?>
+          <dl class="facts-list facts-card">
+            <?php foreach ($facts as $label => $value): ?>
+              <div><dt><?= e($label) ?></dt><dd><?= e($value) ?></dd></div>
+            <?php endforeach ?>
+            <?php if (!empty($p['units'])): ?>
+              <div><dt>Sizes</dt><dd><?= e(implode(' · ', $p['units'])) ?></dd></div>
+            <?php endif ?>
+          </dl>
+        <?php endif ?>
       </section>
 
-      <section id="gallery" data-reveal>
-        <p class="eyebrow">Gallery</p>
-        <h2 class="h2">Inside <em>&amp; out.</em></h2>
-        <div class="gallery">
-          <?php foreach ($images as $n => $img): ?>
-            <a href="<?= e(photo($img, 2000, 80)) ?>" data-lightbox>
-              <?= photo_img($img, $p['name'] . ' — view ' . ($n + 1), $n === 0 ? '(max-width: 700px) 100vw, 45vw' : '(max-width: 700px) 50vw, 22vw') ?>
-              <span class="gallery-zoom" aria-hidden="true"><?= icon('maximize') ?></span>
-            </a>
-          <?php endforeach ?>
-        </div>
-        <p class="note">Images are artistic impressions for representation only.</p>
-      </section>
-
-      <section id="plans" data-reveal>
-        <p class="eyebrow">Plans &amp; pricing</p>
-        <h2 class="h2">Choose <em>your space.</em></h2>
-        <div class="table-wrap">
-          <table class="plans">
-            <thead><tr><th scope="col">Configuration</th><th scope="col">Size (SBA)</th><th scope="col">Starting price</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
-            <tbody>
-              <?php foreach ($p['plans'] as [$conf, $size, $price]): ?>
-                <tr>
-                  <td><?= e($conf) ?></td>
-                  <td><?= e($size) ?></td>
-                  <td><?= e($price) ?></td>
-                  <td><a class="link-arrow" href="<?= e(url('contact?interest=' . rawurlencode($interest))) ?>#enquire">Get floor plan <?= icon('arrow-up-right') ?></a></td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-        </div>
-        <p class="note"><?= e(PRICE_NOTE) ?><?= $p['rera'] !== '' ? ' RERA No. ' . e($p['rera']) . '.' : '' ?></p>
-      </section>
-
-      <section id="amenities" data-reveal>
-        <p class="eyebrow">Amenities</p>
-        <h2 class="h2">Everything you need, <em>on site.</em></h2>
-        <ul class="amenities">
-          <?php foreach ($p['amenities'] as $a): ?>
-            <li class="amenity"><?= icon($a) ?><?= e(AMENITY_SET[$a]) ?></li>
+      <section id="principles" data-reveal>
+        <p class="eyebrow">Why <?= e(SITE_SHORT) ?></p>
+        <h2 class="h2">Built on <em>four principles.</em></h2>
+        <ul class="principles">
+          <?php foreach (PRINCIPLES as [$ic, $title, $text]): ?>
+            <li><?= icon($ic) ?><h3><?= e($title) ?></h3><p><?= e($text) ?></p></li>
           <?php endforeach ?>
         </ul>
       </section>
 
       <section id="location" data-reveal>
         <p class="eyebrow">Location</p>
-        <h2 class="h2">Well connected, <em>naturally.</em></h2>
-        <ul class="nearby">
-          <?php foreach ($p['nearby'] as [$ic, $place, $time]): ?>
-            <li><span class="nearby-icon"><?= icon($ic) ?></span><?= e($place) ?><strong><?= e($time) ?></strong></li>
-          <?php endforeach ?>
-        </ul>
+        <h2 class="h2"><?= e($p['location']) ?>, <em><?= CITY ?>.</em></h2>
         <div class="map">
-          <iframe title="Map of <?= e($p['location']) ?>, <?= CITY ?>" src="https://maps.google.com/maps?q=<?= rawurlencode($p['location'] . ', ' . CITY) ?>&amp;z=13&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe title="Map of <?= e($p['location']) ?>, <?= CITY ?>" src="https://maps.google.com/maps?q=<?= rawurlencode($p['location'] . ', ' . CITY) ?>&amp;z=14&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-      </section>
-
-      <?php if ($building): ?>
-        <section id="progress" data-reveal>
-          <p class="eyebrow">Construction progress</p>
-          <h2 class="h2">On site, <em>on schedule.</em></h2>
-          <div class="progress-head"><span>Overall completion</span><strong><?= (int) $p['progress'] ?>%</strong></div>
-          <div class="progress-bar" role="progressbar" aria-valuenow="<?= (int) $p['progress'] ?>" aria-valuemin="0" aria-valuemax="100" aria-label="Construction progress"><span style="--w:<?= (int) $p['progress'] ?>%"></span></div>
-          <ul class="milestones">
-            <?php foreach ($p['milestones'] as $label => $state): ?>
-              <li class="is-<?= e($state) ?>"><span class="ms-dot"><?= $state === 'done' ? icon('check') : '' ?></span><?= e($label) ?></li>
-            <?php endforeach ?>
-          </ul>
-          <p class="note">Target possession <?= e($p['possession']) ?>. Buyers receive photo progress reports every month.</p>
-        </section>
-      <?php endif ?>
-
-      <?php if ($residential): ?>
-        <section id="specifications" data-reveal>
-          <p class="eyebrow">Specifications</p>
-          <h2 class="h2">Built <em>to last.</em></h2>
-          <div class="accordion">
-            <?php foreach (SPECIFICATIONS as $title => $text): ?>
-              <details>
-                <summary><?= e($title) ?><?= icon('plus') ?></summary>
-                <p><?= e($text) ?></p>
-              </details>
-            <?php endforeach ?>
-          </div>
-        </section>
-      <?php endif ?>
-
-      <section id="emi" data-reveal>
-        <p class="eyebrow">No Cost EMI</p>
-        <h2 class="h2"><?= NO_COST_EMI_SHARE ?>% of the price, <em>zero interest.</em></h2>
-        <?php part('emi', ['price' => $p['price_value']]) ?>
+        <p class="note">Photographs are representative and may not depict the actual project.</p>
       </section>
     </div>
 
-    <aside class="aside" aria-label="Enquire about <?= e($p['name']) ?>">
+    <aside class="aside" aria-label="Enquire with <?= e(SITE_NAME) ?>">
       <div class="enquire-card on-dark">
         <div class="orb" aria-hidden="true"></div>
-        <div class="price">
-          <small>Starting from</small>
-          <strong><?= e($p['price']) ?></strong>
-          <span><?= e($p['config']) ?> · <?= e($p['size']) ?></span>
-        </div>
-        <a class="emi-offer" href="#emi"><?= icon('percent') ?><span><strong>No Cost EMI</strong> on <?= NO_COST_EMI_SHARE ?>% of the price, from <strong><?= inr(no_cost_emi($p['price_value'])) ?>/month</strong></span></a>
+        <p class="eyebrow">Looking for a home like this?</p>
+        <h3>Talk to our team</h3>
+        <p class="enquire-intro">We have <?= STATS['ongoing']['n'] ?> projects under development across <?= CITY ?>. Share your details and we'll call you back.</p>
+        <a class="emi-offer" href="<?= e(url('projects#ownership')) ?>"><?= icon('percent') ?><span><strong>No Cost EMI</strong> on <?= NO_COST_EMI_SHARE ?>% of the price, with <strong>zero interest</strong></span></a>
         <hr>
-        <h3>Schedule a site visit</h3>
         <?php part('enquiry-form', ['compact' => true, 'project' => $interest, 'source' => 'project:' . $p['slug']]) ?>
         <div class="aside-actions">
-          <a class="btn btn--wa btn--sm" href="<?= e(wa_link("Hi, I'm interested in " . $p['name'] . ', ' . $p['location'] . '.')) ?>" target="_blank" rel="noopener"><?= icon('whatsapp') ?>WhatsApp</a>
+          <a class="btn btn--wa btn--sm" href="<?= e(wa_link("Hi ConceptOne, I saw " . $p['name'] . ' (' . $p['location'] . ") and I'm looking for a similar home.")) ?>" target="_blank" rel="noopener"><?= icon('whatsapp') ?>WhatsApp</a>
           <a class="btn btn--ghost btn--sm" href="tel:<?= PHONE_HREF ?>"><?= icon('phone') ?>Call</a>
         </div>
       </div>
@@ -215,7 +117,7 @@ require ROOT . '/includes/header.php';
     <div class="section-head">
       <div>
         <p class="eyebrow">Keep exploring</p>
-        <h2 class="h2">You may also <em>like.</em></h2>
+        <h2 class="h2">More of <em>our projects.</em></h2>
       </div>
       <a class="link-arrow" href="<?= e(url('projects')) ?>">All projects <?= icon('arrow-up-right') ?></a>
     </div>
