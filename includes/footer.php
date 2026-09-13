@@ -67,6 +67,7 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
     <div class="footer-bottom">
       <p>© <?= date('Y') ?> <?= e(SITE_NAME) ?>. All rights reserved.</p>
       <p><?= e(TAGLINE) ?></p>
+      <p class="footer-credit">Developed by <a href="https://clientcarex.com/" target="_blank" rel="noopener">ClientCareX</a></p>
     </div>
     <p class="footer-note">Disclaimer: Photographs on this website are representative and may not depict the actual projects. <?= e(PAYMENT_NOTE) ?> The information on this website does not constitute an offer or contract.</p>
   </div>
