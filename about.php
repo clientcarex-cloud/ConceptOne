@@ -18,7 +18,7 @@ $sections = [
     'first-projects' => 'First Projects',
     'concept'        => 'One Concept',
     'journey'        => 'Our Journey',
-    'founders'       => 'Our Founders',
+    'founders'       => 'Founders & Leadership',
     'mission'        => 'Mission & Values',
     'message'        => "Founders' Message",
 ];
@@ -275,6 +275,19 @@ require ROOT . '/includes/header.php';
       <?php foreach (FOUNDERS as $i => $f) part('founder', ['f' => $f, 'i' => 0, 'full' => true]) ?>
     </div>
     <p class="founders-motto" data-reveal>Two Brothers. One Vision. <em>One Concept.</em></p>
+
+    <div class="leadership" id="leadership">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Leadership</p>
+          <h2 class="h2">Guiding every family <em>home.</em></h2>
+        </div>
+        <p class="lead">Alongside our founders, our leadership team makes sure every customer's journey is clear, supported and easier from the first visit to the day they move in.</p>
+      </div>
+      <div class="founders founders--full">
+        <?php foreach (LEADERSHIP as $f) part('founder', ['f' => $f, 'i' => 0, 'full' => true]) ?>
+      </div>
+    </div>
   </div>
 </section>
 

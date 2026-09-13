@@ -153,12 +153,19 @@ require ROOT . '/includes/header.php';
         <p class="eyebrow">Our Founders</p>
         <h2 class="h2">The people behind <em>the vision.</em></h2>
       </div>
-      <a class="link-arrow" href="<?= e(url('about#founders')) ?>">Meet our founders <?= icon('arrow-up-right') ?></a>
+      <a class="link-arrow" href="<?= e(url('about#founders')) ?>">Meet our founders &amp; leadership <?= icon('arrow-up-right') ?></a>
     </div>
     <div class="founders">
       <?php foreach (FOUNDERS as $i => $f) part('founder', ['f' => $f, 'i' => $i]) ?>
     </div>
     <p class="founders-motto" data-reveal>Two Brothers. One Vision. <em>One Concept.</em></p>
+
+    <div class="leadership" id="leadership">
+      <p class="eyebrow">Leadership</p>
+      <div class="founders founders--single">
+        <?php foreach (LEADERSHIP as $i => $f) part('founder', ['f' => $f, 'i' => $i]) ?>
+      </div>
+    </div>
   </div>
 </section>
 

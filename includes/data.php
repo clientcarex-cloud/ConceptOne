@@ -193,6 +193,26 @@ const FOUNDERS = [
     ],
 ];
 
+/**
+ * Leadership beyond the two founders, shown under "Our Founders".
+ * TODO: confirm Sana's role, bio and quote with the client.
+ */
+const LEADERSHIP = [
+    [
+        'name'       => 'Sana Salauddin',
+        'short'      => 'Sana',
+        'role'       => 'Director — Sales & Client Relations',
+        'photo'      => 'sana-salauddin',
+        'credential' => '',
+        'intro'      => 'Leads sales, marketing and customer experience, guiding every buyer from the first site visit through registration and handover.',
+        'bio'        => [
+            'Sana Salauddin leads sales, marketing and customer experience at ConceptOne Developers.',
+            'Her team walks every buyer through the home-buying journey, from the first site visit and payment options through registration and handover, so families always know what comes next.',
+        ],
+        'quote'      => 'A home is the biggest decision a family makes. They deserve clear answers.',
+    ],
+];
+
 /** Our Journey: [when, title, text]. */
 const JOURNEY = [
     ['2019', 'The first project', 'First project signed — Diamond Avenue, Puppalaguda.'],

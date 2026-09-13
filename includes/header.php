@@ -16,6 +16,7 @@ $schema    = [
     'logo'          => SITE_URL . '/assets/img/Logo.png',
     'foundingDate'  => (string) FOUNDED,
     'founder'       => array_map(fn ($f) => ['@type' => 'Person', 'name' => $f['name'], 'jobTitle' => $f['role']], FOUNDERS),
+    'employee'      => array_map(fn ($f) => ['@type' => 'Person', 'name' => $f['name'], 'jobTitle' => $f['role']], LEADERSHIP),
     'areaServed'    => CITY,
     'telephone'     => [PHONE, PHONE_ALT],
     'email'         => EMAIL,

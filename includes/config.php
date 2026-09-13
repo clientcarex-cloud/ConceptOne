@@ -56,7 +56,7 @@ const NAV = [
     'about'    => ['About Us', 'about', [
         ['Our Story', 'about#story'],
         ['Our Journey', 'about#journey'],
-        ['Our Founders', 'about#founders'],
+        ['Founders & Leadership', 'about#founders'],
         ['Mission, Vision & Values', 'about#mission'],
         ["Founders' Message", 'about#message'],
     ]],

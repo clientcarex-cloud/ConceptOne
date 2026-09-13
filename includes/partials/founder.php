@@ -1,7 +1,8 @@
 <?php
 /**
- * A founder: a card on the home page, the full biography when $full is set.
- * @var array $f  a FOUNDERS entry  @var int $i  @var bool $full
+ * A founder or leadership member: a card on the home page, the full
+ * biography when $full is set.
+ * @var array $f  a FOUNDERS or LEADERSHIP entry  @var int $i  @var bool $full
  */
 $full ??= false;
 ?>
@@ -10,7 +11,9 @@ $full ??= false;
   <div class="founder-body">
     <p class="founder-role"><?= e($f['role']) ?></p>
     <h3 class="founder-name"><?= e($f['name']) ?></h3>
-    <p class="founder-cred"><?= icon('school') ?><?= e($f['credential']) ?></p>
+    <?php if ($f['credential'] !== ''): ?>
+      <p class="founder-cred"><?= icon('school') ?><?= e($f['credential']) ?></p>
+    <?php endif ?>
     <?php if ($full): ?>
       <div class="prose prose--lead">
         <?php foreach ($f['bio'] as $para): ?><p><?= e($para) ?></p><?php endforeach ?>
