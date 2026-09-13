@@ -161,14 +161,15 @@ const ONGOING_PHOTOS = ['1541888946425-d81bb19240f5', '1504307651254-35680f356df
 
 /**
  * Founders. `photo` is the file stem in assets/img/team.
- * TODO: confirm the photo-to-name mapping and the spelling of the family name.
+ * Photos confirmed by the user: Abdul Rab is the pinstripe-suit portrait (mohammed.*),
+ * Mohammed Albosi the cream-shirt portrait (abdullah.*). TODO: confirm family-name spelling.
  */
 const FOUNDERS = [
     [
         'name'       => 'Abdul Rab bin Abdullah Al Bosi',
         'short'      => 'Abdul Rab',
         'role'       => 'Founder & Director',
-        'photo'      => 'abdullah',
+        'photo'      => 'mohammed',
         'credential' => "Master's Degree in Sales & Marketing · 12+ years in real estate, Jeddah",
         'intro'      => 'Returned from over 12 years in the Saudi Arabian real-estate market to build a company around affordability, trust and customer-centric development.',
         'bio'        => [
@@ -182,7 +183,7 @@ const FOUNDERS = [
         'name'       => 'Mohammed Albosi',
         'short'      => 'Mohammed',
         'role'       => 'Co-Founder & Director',
-        'photo'      => 'mohammed',
+        'photo'      => 'abdullah',
         'credential' => 'Sales & Marketing · Real-estate experience, Saudi Arabia',
         'intro'      => 'A Saudi-returned professional who joined his brother with the same values, vision and determination.',
         'bio'        => [
