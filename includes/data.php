@@ -5,10 +5,10 @@
  *
  * Copy follows the client's brief (September 2026).
  *
- * Photography is either a key of RENDERS (the client's own architectural
- * renders, served from assets/img/projects) or an Unsplash photo ID — the
- * latter are REPRESENTATIVE stand-ins for projects without a render yet.
- * See photo() in helpers.php.
+ * Photography is a key of RENDERS: the client's own architectural renders,
+ * served from assets/img/projects (see photo() in helpers.php). Projects
+ * without a render of their own borrow one, so those are REPRESENTATIVE.
+ * TODO: swap in each project's own render as they arrive.
  */
 declare(strict_types=1);
 
@@ -30,12 +30,9 @@ const RENDERS = [
 /** Page-level photography. */
 const PHOTOS = [
     'hero'          => 'royal',
-    'hyderabad'     => '1551161242-b5af797b7233',   // Charminar
+    'story'         => 'anita',
     'about_hero'    => 'anita',
-    'home_interior' => '1600210492486-724fe5c67fb0',
     'construction'  => 'skyz',
-    'keys'          => '1560518883-ce09059eeffa',
-    'community'     => '1511895426328-dc8714191300',
     'projects_hero' => 'nest',
     'contact_hero'  => 'royal',
     'notfound'      => 'casa',
@@ -77,7 +74,7 @@ const PROJECTS = [
         'chapter'  => 'Project 01 · Our first project',
         'config'   => '10 Premium 3BHK Apartments',
         'summary'  => 'Our very first project, delivered through one of the most challenging periods the country has experienced.',
-        'cover'    => '1597047084897-51e81819a499',
+        'cover'    => 'royal',
         'facts'    => [
             'Building' => 'Ground + 5 floors',
             'Homes'    => '10 premium 3BHK apartments',
@@ -100,7 +97,7 @@ const PROJECTS = [
         'chapter'  => 'Project 02',
         'config'   => '15 Premium 2BHK Apartments',
         'summary'  => 'Fifteen homes that proved affordable living spaces need not compromise on planning or quality.',
-        'cover'    => '1515263487990-61b07816b324',
+        'cover'    => 'skyz',
         'facts'    => [
             'Building' => 'Ground + 5 floors',
             'Homes'    => '15 premium 2BHK apartments',
@@ -121,7 +118,7 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Residential development',
         'summary'  => 'A residential development designed around modern urban living and practical family spaces.',
-        'cover'    => '1574362848149-11496d93a7c7',
+        'cover'    => 'pearl',
     ],
     [
         'slug'     => 'le-crown',
@@ -130,7 +127,7 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Residential development',
         'summary'  => 'A thoughtfully developed residential project focused on comfortable city living.',
-        'cover'    => '1545324418-cc1a3fa10c00',
+        'cover'    => 'skyz',
     ],
     [
         'slug'     => 'casa',
@@ -166,18 +163,15 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Residential development',
         'summary'  => "A residential development created with ConceptOne's commitment to practical and accessible living spaces.",
-        'cover'    => '1479839672679-a46483c0e7c8',
+        'cover'    => 'royal',
     ],
 ];
 
 /** Slugs shown in the home page's "Our Projects" section. */
 const HOME_PROJECTS = ['kohinoor-20', 'le-crown', 'casa', 'anita', 'nest', 'bafana-residency'];
 
-/**
- * Photos for the ongoing-project tiles, one per project under development:
- * the Concept One renders not tied to a delivered project, then a site photo.
- */
-const ONGOING_PHOTOS = ['royal', 'skyz', 'pearl', '1541888946425-d81bb19240f5'];
+/** Photos for the ongoing-project tiles, one per project under development. */
+const ONGOING_PHOTOS = ['royal', 'skyz', 'pearl', 'nest'];
 
 /**
  * Founders. `photo` is the file stem in assets/img/team.

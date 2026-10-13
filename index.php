@@ -54,7 +54,7 @@ require ROOT . '/includes/header.php';
   <div class="container">
     <div class="intro-grid">
       <div class="collage" data-reveal>
-        <div class="collage-main"><?= photo_img(PHOTOS['hyderabad'], 'The Charminar in Hyderabad', '(max-width: 960px) 90vw, 46vw') ?></div>
+        <div class="collage-main"><?= photo_img(PHOTOS['story'], 'A ConceptOne residential building in Hyderabad', '(max-width: 960px) 90vw, 46vw') ?></div>
         <div class="collage-small"><?= founder_img($founder) ?></div>
         <div class="seal" aria-hidden="true">
           <svg class="seal-ring" viewBox="0 0 120 120">
