@@ -35,15 +35,33 @@ function active(bool $isCurrent): string
     return $isCurrent ? ' aria-current="page"' : '';
 }
 
-/** Photography URL at a given width (images are served by Unsplash's CDN). */
+/**
+ * Photography URL at a given width: a local project render (a RENDERS key,
+ * smallest rendition at least $w wide) or an image on Unsplash's CDN.
+ */
 function photo(string $id, int $w = 1200, int $q = 72): string
 {
+    if (isset(RENDERS[$id])) {
+        $widths = RENDERS[$id]['widths'];
+        $fit    = current(array_filter($widths, fn (int $rw) => $rw >= $w)) ?: end($widths);
+
+        return asset("assets/img/projects/$id-$fit.webp");
+    }
+
     return "https://images.unsplash.com/photo-$id?auto=format&fit=crop&w=$w&q=$q";
+}
+
+/** Absolute URL of a photo for social previews (JPEG, since not every scraper reads WebP). */
+function photo_og(string $id): string
+{
+    return isset(RENDERS[$id]) ? SITE_URL . "/assets/img/projects/$id.jpg" : photo($id, 1200, 70);
 }
 
 /** Responsive srcset for a photo. */
 function photo_srcset(string $id, array $widths = [480, 800, 1200, 1800]): string
 {
+    $widths = RENDERS[$id]['widths'] ?? $widths;
+
     return implode(', ', array_map(fn (int $w) => photo($id, $w) . " {$w}w", $widths));
 }
 
@@ -51,6 +69,9 @@ function photo_srcset(string $id, array $widths = [480, 800, 1200, 1800]): strin
 function photo_img(string $id, string $alt, string $sizes = '100vw', array $attrs = []): string
 {
     $attrs += ['loading' => 'lazy', 'decoding' => 'async'];
+    if (isset(RENDERS[$id]['focus']) && !isset($attrs['style'])) {
+        $attrs['style'] = 'object-position: ' . RENDERS[$id]['focus'];
+    }
     $extra = '';
     foreach ($attrs as $k => $v) {
         $extra .= ' ' . $k . '="' . e((string) $v) . '"';

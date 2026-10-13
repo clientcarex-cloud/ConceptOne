@@ -5,23 +5,40 @@
  *
  * Copy follows the client's brief (September 2026).
  *
- * Photography IDs refer to images on Unsplash's CDN (see photo() in
- * helpers.php). They are REPRESENTATIVE stand-ins until real project photos
- * arrive — swap an ID, or point photo() at local files.
+ * Photography is either a key of RENDERS (the client's own architectural
+ * renders, served from assets/img/projects) or an Unsplash photo ID — the
+ * latter are REPRESENTATIVE stand-ins for projects without a render yet.
+ * See photo() in helpers.php.
  */
 declare(strict_types=1);
 
+/**
+ * Project renders from "Projects by ConceptOne Developers.pdf", cropped to drop
+ * the architects' watermarks. Files are assets/img/projects/{key}-{width}.webp
+ * plus {key}.jpg (1200px max) for social previews; regenerate all of them
+ * together. `focus` is the object-position used when a slot crops the image.
+ */
+const RENDERS = [
+    'royal' => ['widths' => [480, 800, 1200, 1800], 'focus' => '50% 42%'],
+    'skyz'  => ['widths' => [480, 800, 1021], 'focus' => '50% 45%'],
+    'nest'  => ['widths' => [480, 800, 1235], 'focus' => '50% 42%'],
+    'casa'  => ['widths' => [480, 800, 960], 'focus' => '50% 48%'],
+    'anita' => ['widths' => [480, 800, 1040], 'focus' => '50% 50%'],
+    'pearl' => ['widths' => [480, 800, 930], 'focus' => '50% 40%'],
+];
+
 /** Page-level photography. */
 const PHOTOS = [
-    'hero'          => '1597047084897-51e81819a499',
+    'hero'          => 'royal',
     'hyderabad'     => '1551161242-b5af797b7233',   // Charminar
+    'about_hero'    => 'anita',
     'home_interior' => '1600210492486-724fe5c67fb0',
-    'construction'  => '1541888946425-d81bb19240f5',
+    'construction'  => 'skyz',
     'keys'          => '1560518883-ce09059eeffa',
     'community'     => '1511895426328-dc8714191300',
-    'projects_hero' => '1574362848149-11496d93a7c7',
-    'contact_hero'  => '1567767292278-a4f21aa2d36e',
-    'notfound'      => '1494526585095-c41746248156',
+    'projects_hero' => 'nest',
+    'contact_hero'  => 'royal',
+    'notfound'      => 'casa',
 ];
 
 /**
@@ -122,7 +139,7 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Residential development',
         'summary'  => 'A contemporary residential development created with affordability and functionality in mind.',
-        'cover'    => '1460317442991-0ec209397118',
+        'cover'    => 'casa',
     ],
     [
         'slug'     => 'anita',
@@ -131,7 +148,7 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Premium residential development',
         'summary'  => "A premium residential development positioned in one of Hyderabad's sought-after locations.",
-        'cover'    => '1600585154526-990dced4db0d',
+        'cover'    => 'anita',
     ],
     [
         'slug'     => 'nest',
@@ -140,7 +157,7 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Residential development',
         'summary'  => 'A carefully planned residential project designed around the idea of creating a comfortable place to call home.',
-        'cover'    => '1448630360428-65456885c650',
+        'cover'    => 'nest',
     ],
     [
         'slug'     => 'bafana-residency',
@@ -156,8 +173,11 @@ const PROJECTS = [
 /** Slugs shown in the home page's "Our Projects" section. */
 const HOME_PROJECTS = ['kohinoor-20', 'le-crown', 'casa', 'anita', 'nest', 'bafana-residency'];
 
-/** Stand-in photos for the ongoing-project tiles, one per project under development. */
-const ONGOING_PHOTOS = ['1541888946425-d81bb19240f5', '1504307651254-35680f356dfd', '1503387762-592deb58ef4e', '1517089596392-fb9a9033e05b'];
+/**
+ * Photos for the ongoing-project tiles, one per project under development:
+ * the Concept One renders not tied to a delivered project, then a site photo.
+ */
+const ONGOING_PHOTOS = ['royal', 'skyz', 'pearl', '1541888946425-d81bb19240f5'];
 
 /**
  * Founders. `photo` is the file stem in assets/img/team.

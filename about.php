@@ -6,7 +6,7 @@ $page = [
     'path'        => 'about',
     'title'       => 'About Us — Our Story, Journey & Founders | ' . SITE_NAME,
     'description' => 'From a vision in Jeddah to building dreams in ' . CITY . ': the story of ' . SITE_NAME . ', formerly SmartCity Developers. Our journey, founders, mission, vision and values.',
-    'image'       => PHOTOS['hyderabad'],
+    'image'       => PHOTOS['about_hero'],
 ];
 $diamond   = project('diamond-avenue');
 $smartcity = project('smartcity-avenue');
@@ -26,7 +26,7 @@ require ROOT . '/includes/header.php';
 ?>
 
 <section class="page-hero on-dark">
-  <?= photo_img(PHOTOS['hyderabad'], '', '100vw', ['loading' => 'eager', 'fetchpriority' => 'high']) ?>
+  <?= photo_img(PHOTOS['about_hero'], '', '100vw', ['loading' => 'eager', 'fetchpriority' => 'high']) ?>
   <div class="container">
     <ol class="crumbs">
       <li><a href="<?= url() ?>">Home</a></li>

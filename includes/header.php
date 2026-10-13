@@ -4,7 +4,7 @@
  * @var array $page  title, description, nav, path, [image], [noindex]
  */
 $canonical = SITE_URL . '/' . ($page['path'] ?? '');
-$ogImage   = isset($page['image']) ? photo($page['image'], 1200, 70) : SITE_URL . '/assets/img/Logo.png';
+$ogImage   = isset($page['image']) ? photo_og($page['image']) : SITE_URL . '/assets/img/Logo.png';
 $current   = $page['nav'] ?? '';
 $schema    = [
     '@context'      => 'https://schema.org',
