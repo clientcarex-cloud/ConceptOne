@@ -57,7 +57,7 @@ $schema    = [
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Montserrat:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="<?= asset('assets/css/style.css') ?>">
 <script>document.documentElement.classList.add("js");</script>
 <script type="application/ld+json"><?= json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) ?></script>
@@ -121,7 +121,7 @@ $schema    = [
     <?php foreach (phones() as [$label, $href]): ?>
       <a href="tel:<?= e($href) ?>"><?= icon('phone') ?><?= e($label) ?></a>
     <?php endforeach ?>
-    <a href="mailto:<?= EMAIL ?>"><?= icon('mail') ?><?= e(EMAIL) ?></a>
+    <a href="mailto:<?= e(EMAIL) ?>"><?= icon('mail') ?><?= e(EMAIL) ?></a>
     <a class="btn btn--light" href="<?= e(enquire_url('Schedule a site visit')) ?>">Schedule a site visit <?= icon('arrow-right') ?></a>
   </div>
 </div>

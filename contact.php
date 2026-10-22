@@ -37,9 +37,10 @@ require ROOT . '/includes/header.php';
     <a class="contact-card" href="<?= e(wa_link('Hi ConceptOne, I have a question.')) ?>" target="_blank" rel="noopener" data-reveal style="--d:.08s">
       <span class="ic"><?= icon('whatsapp') ?></span><small>WhatsApp</small><strong>Chat with our team</strong>
     </a>
-    <a class="contact-card" href="mailto:<?= EMAIL ?>" data-reveal style="--d:.16s">
-      <span class="ic"><?= icon('mail') ?></span><small>Email</small><strong><?= e(EMAIL) ?></strong>
-    </a>
+    <div class="contact-card" data-reveal style="--d:.16s">
+      <span class="ic"><?= icon('mail') ?></span><small>Email</small>
+      <strong><a href="mailto:<?= e(EMAIL) ?>"><?= e(EMAIL) ?></a><br><a href="mailto:<?= e(EMAIL_SALES) ?>"><?= e(EMAIL_SALES) ?></a></strong>
+    </div>
     <div class="contact-card" data-reveal style="--d:.24s">
       <span class="ic"><?= icon('clock') ?></span><small>Open</small><strong><?= e(HOURS) ?></strong>
     </div>
@@ -67,7 +68,9 @@ require ROOT . '/includes/header.php';
           <li><?= icon('map-pin') ?><div><small>Office</small><?= implode('<br>', array_map('e', ADDRESS)) ?></div></li>
           <li><?= icon('clock') ?><div><small>Hours</small><?= e(HOURS) ?></div></li>
           <li><?= icon('phone') ?><div><small>Phone &amp; WhatsApp</small><?php foreach (phones() as $i => [$label, $href]): ?><?= $i ? '<br>' : '' ?><a href="tel:<?= e($href) ?>"><?= e($label) ?></a><?php endforeach ?></div></li>
-          <li><?= icon('mail') ?><div><small>Email</small><a href="mailto:<?= EMAIL ?>"><?= e(EMAIL) ?></a></div></li>
+          <?php foreach (EMAILS as [$label, $address]): ?>
+            <li><?= icon('mail') ?><div><small><?= e($label) ?></small><a href="mailto:<?= e($address) ?>"><?= e($address) ?></a></div></li>
+          <?php endforeach ?>
         </ul>
         <a class="btn btn--wa btn--block" href="<?= e(wa_link('Hi ConceptOne, I would like to schedule a site visit.')) ?>" target="_blank" rel="noopener"><?= icon('whatsapp') ?>Schedule on WhatsApp</a>
       </div>

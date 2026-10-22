@@ -3,7 +3,7 @@
 ?>
 <article class="card" data-reveal style="--d:<?= (($i ?? 0) % 3) * 0.08 ?>s">
   <div class="card-media">
-    <?= photo_img($p['cover'], '', '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px') ?>
+    <?= cover_img($p['cover'], $p['name'], '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px') ?>
     <span class="badge badge--<?= e($p['status']) ?>"><?= e(STATUSES[$p['status']]) ?></span>
     <span class="card-loc"><?= icon('map-pin') ?><?= e($p['location']) ?></span>
   </div>

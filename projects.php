@@ -40,7 +40,7 @@ require ROOT . '/includes/header.php';
     <div class="grid-projects">
       <?php foreach (PROJECTS as $i => $p) part('project-card', ['p' => $p, 'i' => $i]) ?>
     </div>
-    <p class="note">Photographs are representative and may not depict the actual projects.</p>
+    <p class="note">Images are architectural renders; the finished buildings may differ.</p>
   </div>
 </section>
 
@@ -57,15 +57,15 @@ require ROOT . '/includes/header.php';
     </div>
 
     <div class="ongoing">
-      <?php for ($n = 0; $n < STATS['ongoing']['n']; $n++): ?>
+      <?php for ($n = 0; $n < STATS['ongoing']['n']; $n++): $o = ONGOING[$n] ?? ['name' => null, 'photo' => null]; ?>
         <article class="ongoing-card" data-reveal style="--d:<?= $n * 0.08 ?>s">
           <div class="ongoing-media">
-            <?= photo_img(ONGOING_PHOTOS[$n % count(ONGOING_PHOTOS)], '', '(max-width: 520px) 100vw, (max-width: 1000px) 50vw, 320px') ?>
+            <?= cover_img($o['photo'], $o['name'] ?? '', '(max-width: 520px) 100vw, (max-width: 1000px) 50vw, 320px') ?>
             <span class="badge badge--ongoing"><?= e(STATUSES['ongoing']) ?></span>
           </div>
           <div class="ongoing-body">
-            <small>New project <?= sprintf('%02d', $n + 1) ?></small>
-            <h3>Details launching soon</h3>
+            <small>New project <?= sprintf('%02d', $n + 1) ?><?= $o['name'] ? ' · Launching soon' : '' ?></small>
+            <h3><?= e($o['name'] ?? 'Details launching soon') ?></h3>
             <p><?= icon('map-pin') ?><?= CITY ?></p>
           </div>
         </article>

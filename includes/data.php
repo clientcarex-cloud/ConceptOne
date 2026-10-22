@@ -6,9 +6,10 @@
  * Copy follows the client's brief (September 2026).
  *
  * Photography is a key of RENDERS: the client's own architectural renders,
- * served from assets/img/projects (see photo() in helpers.php). Projects
- * without a render of their own borrow one, so those are REPRESENTATIVE.
- * TODO: swap in each project's own render as they arrive.
+ * served from assets/img/projects (see photo() in helpers.php). Each render
+ * carries the building's name on its facade, so a project only ever shows its
+ * OWN render; projects without one (cover => null) show a branded placeholder.
+ * TODO: add each project's render as it arrives.
  */
 declare(strict_types=1);
 
@@ -19,12 +20,12 @@ declare(strict_types=1);
  * together. `focus` is the object-position used when a slot crops the image.
  */
 const RENDERS = [
-    'royal' => ['widths' => [480, 800, 1200, 1800], 'focus' => '50% 42%'],
-    'skyz'  => ['widths' => [480, 800, 1021], 'focus' => '50% 45%'],
-    'nest'  => ['widths' => [480, 800, 1235], 'focus' => '50% 42%'],
-    'casa'  => ['widths' => [480, 800, 960], 'focus' => '50% 48%'],
-    'anita' => ['widths' => [480, 800, 1040], 'focus' => '50% 50%'],
-    'pearl' => ['widths' => [480, 800, 930], 'focus' => '50% 40%'],
+    'royal' => ['widths' => [480, 800, 1200, 1800], 'focus' => '50% 42%'],   // signed "Concept One Royal"
+    'skyz'  => ['widths' => [480, 800, 1021], 'focus' => '50% 45%'],         // signed "SKYZ"
+    'nest'  => ['widths' => [480, 800, 1235], 'focus' => '50% 42%'],         // signed "Concept One Nest"
+    'casa'  => ['widths' => [480, 800, 960], 'focus' => '50% 48%'],          // signed "Casa Apartment"
+    'anita' => ['widths' => [480, 800, 1040], 'focus' => '50% 50%'],         // Anita (no name sign)
+    'pearl' => ['widths' => [480, 800, 930], 'focus' => '50% 40%'],          // signed "Concept One Pearl"
 ];
 
 /** Page-level photography. */
@@ -74,7 +75,7 @@ const PROJECTS = [
         'chapter'  => 'Project 01 · Our first project',
         'config'   => '10 Premium 3BHK Apartments',
         'summary'  => 'Our very first project, delivered through one of the most challenging periods the country has experienced.',
-        'cover'    => 'royal',
+        'cover'    => null,   // no render yet
         'facts'    => [
             'Building' => 'Ground + 5 floors',
             'Homes'    => '10 premium 3BHK apartments',
@@ -97,7 +98,7 @@ const PROJECTS = [
         'chapter'  => 'Project 02',
         'config'   => '15 Premium 2BHK Apartments',
         'summary'  => 'Fifteen homes that proved affordable living spaces need not compromise on planning or quality.',
-        'cover'    => 'skyz',
+        'cover'    => null,   // no render yet
         'facts'    => [
             'Building' => 'Ground + 5 floors',
             'Homes'    => '15 premium 2BHK apartments',
@@ -118,7 +119,7 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Residential development',
         'summary'  => 'A residential development designed around modern urban living and practical family spaces.',
-        'cover'    => 'pearl',
+        'cover'    => null,   // no render yet
     ],
     [
         'slug'     => 'le-crown',
@@ -127,7 +128,7 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Residential development',
         'summary'  => 'A thoughtfully developed residential project focused on comfortable city living.',
-        'cover'    => 'skyz',
+        'cover'    => null,   // no render yet
     ],
     [
         'slug'     => 'casa',
@@ -163,15 +164,23 @@ const PROJECTS = [
         'status'   => 'delivered',
         'config'   => 'Residential development',
         'summary'  => "A residential development created with ConceptOne's commitment to practical and accessible living spaces.",
-        'cover'    => 'royal',
+        'cover'    => null,   // no render yet
     ],
 ];
 
-/** Slugs shown in the home page's "Our Projects" section. */
-const HOME_PROJECTS = ['kohinoor-20', 'le-crown', 'casa', 'anita', 'nest', 'bafana-residency'];
+/** Slugs shown in the home page's "Our Projects" section (projects with renders first). */
+const HOME_PROJECTS = ['casa', 'anita', 'nest', 'kohinoor-20', 'le-crown', 'bafana-residency'];
 
-/** Photos for the ongoing-project tiles, one per project under development. */
-const ONGOING_PHOTOS = ['royal', 'skyz', 'pearl', 'nest'];
+/**
+ * Projects under development, one tile each (STATS['ongoing'] of them). Names are
+ * read off the renders' facade signs; a null name/photo shows "launching soon".
+ */
+const ONGOING = [
+    ['name' => 'Concept One Royal', 'photo' => 'royal'],
+    ['name' => 'Skyz', 'photo' => 'skyz'],
+    ['name' => 'Concept One Pearl', 'photo' => 'pearl'],
+    ['name' => null, 'photo' => null],
+];
 
 /**
  * Founders. `photo` is the file stem in assets/img/team.

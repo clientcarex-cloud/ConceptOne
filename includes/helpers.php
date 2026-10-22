@@ -71,6 +71,16 @@ function photo_img(string $id, string $alt, string $sizes = '100vw', array $attr
     return '<img src="' . e(photo($id, 1200)) . '" srcset="' . e(photo_srcset($id)) . '" sizes="' . e($sizes) . '" alt="' . e($alt) . '"' . $extra . '>';
 }
 
+/** A project's cover render, or a branded placeholder when it has none yet. */
+function cover_img(?string $id, string $name, string $sizes = '100vw', array $attrs = []): string
+{
+    if ($id !== null) {
+        return photo_img($id, $name !== '' ? 'Architectural render of ' . $name : '', $sizes, $attrs);
+    }
+
+    return '<div class="no-photo"><img src="' . asset('assets/img/brand/mark.png') . '" alt="" width="67" height="61"><span>Photos coming soon</span></div>';
+}
+
 /** A founder's portrait from assets/img/team, WebP first. */
 function founder_img(array $f, string $class = ''): string
 {

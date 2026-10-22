@@ -56,7 +56,9 @@ $socials = array_filter(SOCIAL, fn ($s) => $s[2] !== '#');
           <?php foreach (phones() as [$label, $href]): ?>
             <li><?= icon('phone') ?><a href="tel:<?= e($href) ?>"><?= e($label) ?></a></li>
           <?php endforeach ?>
-          <li><?= icon('mail') ?><a href="mailto:<?= EMAIL ?>"><?= e(EMAIL) ?></a></li>
+          <?php foreach ([EMAIL, EMAIL_SALES] as $address): ?>
+            <li><?= icon('mail') ?><a href="mailto:<?= e($address) ?>"><?= e($address) ?></a></li>
+          <?php endforeach ?>
           <li><?= icon('whatsapp') ?><a href="<?= e(wa_link()) ?>" target="_blank" rel="noopener">Chat on WhatsApp</a></li>
           <li><?= icon('map-pin') ?><span><?= implode('<br>', array_map('e', ADDRESS)) ?></span></li>
           <li><?= icon('clock') ?><span><?= e(HOURS) ?></span></li>

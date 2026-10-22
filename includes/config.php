@@ -20,7 +20,16 @@ const PHONE_ALT      = '+91 90307 43030';
 const PHONE_ALT_HREF = '+919030743030';
 
 const WHATSAPP   = '919701815185';                       // country code + number, digits only
-const EMAIL      = 'sales@conceptonedevelopers.com';     // TODO
+/** EMAIL is the primary address, shown wherever there is room for only one. */
+const EMAIL       = 'info@conceptone-developers.com';
+const EMAIL_SALES = 'sales@conceptone-developers.com';
+/** Every published address: [label, address]. The contact page lists them all. */
+const EMAILS = [
+    ['General enquiries', EMAIL],
+    ['Sales', EMAIL_SALES],
+    ['Abdullah', 'abdullah@conceptone-developers.com'],
+    ['Sana Salauddin', 'sana@conceptone-developers.com'],
+];
 const ADDRESS    = [
     'Plot No. 8-1-400/60 & 61, 2nd Floor',
     'Westfield Center, above Dominos Pizza',
@@ -31,7 +40,7 @@ const HOURS      = 'All days · 12:00 pm – 8:00 pm';
 const MAP_QUERY  = 'Westfield Center, Toli Chowki, Hyderabad, Telangana 500008'; // what the contact-page map centres on
 
 /** Where enquiries are delivered. */
-const MAIL_TO = EMAIL;
+const MAIL_TO = EMAIL_SALES;
 
 /** The development journey began with the first project, signed in 2019. */
 const FOUNDED = 2019;

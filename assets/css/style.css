@@ -271,6 +271,22 @@ body.menu-open { overflow: hidden; }
 .hero-stats span { margin-top: 8px; font-size: .7rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: rgba(255, 255, 255, .66); }
 .hero-note { justify-self: end; max-width: 60ch; font-size: .95rem; color: rgba(255, 255, 255, .72); }
 @keyframes heroZoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+
+/* Hero typography: a luxury-property pairing, refined serif headline over a clean wide sans. */
+.hero { --hero-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif; --hero-sans: "Montserrat", var(--sans); font-family: var(--hero-sans); }
+.hero h1.display { font-family: var(--hero-serif); font-weight: 600; font-size: clamp(3.2rem, min(6.8vw, 11vh), 6.6rem); line-height: .98; letter-spacing: -.01em; }
+.hero h1.display em { font-weight: 500; }
+.hero .eyebrow { font-family: var(--hero-sans); font-weight: 600; letter-spacing: .28em; }
+.hero-sub { font-family: var(--hero-sans); font-weight: 600; letter-spacing: .01em; }
+.hero .lead, .hero-note { font-family: var(--hero-sans); font-weight: 400; }
+.hero .btn { font-family: var(--hero-sans); font-weight: 600; letter-spacing: .04em; }
+.hero-stats strong { font-family: var(--hero-serif); font-weight: 600; }
+.hero-stats span { font-family: var(--hero-sans); font-weight: 600; letter-spacing: .2em; }
+
+/* Stand-in for a project that has no render yet. */
+.no-photo { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 14px; background: radial-gradient(120% 90% at 30% 20%, var(--ink-3), var(--ink)); color: rgba(255, 255, 255, .6); }
+.no-photo img { width: 58px !important; height: auto !important; opacity: .85; transform: none !important; filter: none !important; animation: none; }
+.no-photo span { font-size: .7rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
 @media (max-width: 1000px) {
   .hero-foot { grid-template-columns: 1fr; }
   .hero-note { justify-self: start; }

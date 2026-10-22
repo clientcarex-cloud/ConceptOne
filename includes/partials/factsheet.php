@@ -1,7 +1,7 @@
 <?php /** A project's fact sheet card. @var array $p  a PROJECTS entry with facts */ ?>
 <div class="factsheet">
   <div class="factsheet-media">
-    <?= photo_img($p['cover'], '', '(max-width: 960px) 90vw, 40vw') ?>
+    <?= cover_img($p['cover'], $p['name'], '(max-width: 960px) 90vw, 40vw') ?>
     <span class="badge badge--<?= e($p['status']) ?>"><?= e(STATUSES[$p['status']]) ?></span>
   </div>
   <div class="factsheet-body">

@@ -28,7 +28,9 @@ require ROOT . '/includes/header.php';
 ?>
 
 <section class="page-hero page-hero--project on-dark">
-  <?= photo_img($p['cover'], '', '100vw', ['loading' => 'eager', 'fetchpriority' => 'high']) ?>
+  <?php if ($p['cover'] !== null): ?>
+    <?= photo_img($p['cover'], '', '100vw', ['loading' => 'eager', 'fetchpriority' => 'high']) ?>
+  <?php endif ?>
   <div class="container">
     <ol class="crumbs">
       <li><a href="<?= url() ?>">Home</a></li>
